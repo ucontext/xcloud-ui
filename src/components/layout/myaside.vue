@@ -1,41 +1,68 @@
 <template>
-<div>
-	
-	<el-menu default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" background-color="#545c64"
-	 text-color="#fff" active-text-color="#ffd04b">
-		<el-submenu index="1">
-			<template slot="title">
-				<i class="el-icon-location"></i>
-				<span>导航一</span>
-			</template>
-			<el-menu-item-group>
-				<template slot="title">分组一</template>
-				<el-menu-item index="1-1">选项1</el-menu-item>
-				<el-menu-item index="1-2">选项2</el-menu-item>
-			</el-menu-item-group>
-			<el-menu-item-group title="分组2">
-				<el-menu-item index="1-3">选项3</el-menu-item>
-			</el-menu-item-group>
-			<el-submenu index="1-4">
-				<template slot="title">选项4</template>
-				<el-menu-item index="1-4-1">选项1</el-menu-item>
-			</el-submenu>
-		</el-submenu>
-		<el-menu-item index="2">
-			<i class="el-icon-menu"></i>
-			<span slot="title">导航二</span>
-		</el-menu-item>
-		<el-menu-item index="3" disabled>
-			<i class="el-icon-document"></i>
-			<span slot="title">导航三</span>
-		</el-menu-item>
-		<el-menu-item index="4">
-			<i class="el-icon-setting"></i>
-			<span slot="title">导航四</span>
-		</el-menu-item>
-	</el-menu>
-	
-</div>
+	<div>
+		<div class="Logo">
+			Logo
+		</div>
+
+		<div>
+			<el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
+			  <i class="el-icon-location"></i>
+			  <i class="el-icon-location"></i>
+			</el-radio-group>
+			<el-menu :router="true" default-active="1-2" class="el-menu-vertical-demo" 
+			background-color="#ffffff" text-color="#c8cacc" active-text-color="#5c6268"
+			@open="handleOpen" @close="handleClose" :collapse="isCollapse">
+				<el-submenu index="1">
+					<template slot="title">
+						<i class="el-icon-location"></i>
+						<span>系统概览</span>
+					</template>
+					<el-menu-item-group>
+						<el-menu-item index="1-1">选项1</el-menu-item>
+						<el-menu-item index="1-2">选项2</el-menu-item>
+					</el-menu-item-group>
+
+				</el-submenu>
+				<el-menu-item index="2">
+					<i class="el-icon-menu"></i>
+					<span slot="title">态势感知</span>
+				</el-menu-item>
+				<el-menu-item index="3">
+					<i class="el-icon-document"></i>
+					<span slot="title">设备巡检</span>
+				</el-menu-item>
+				<el-menu-item index="4">
+					<i class="el-icon-setting"></i>
+					<span slot="title">安全策略</span>
+				</el-menu-item>
+				<el-menu-item index="/mobile">
+					<i class="el-icon-edit"></i>
+					<span slot="title">终端事件</span>
+				</el-menu-item>
+				<el-menu-item index="/change">
+					<i class="el-icon-document"></i>
+					<span slot="title">配置变更</span>
+				</el-menu-item>
+				<el-menu-item index="/fault">
+					<i class="el-icon-s-management"></i>
+					<span slot="title">故障报告</span>
+				</el-menu-item>
+				<el-menu-item index="8">
+					<i class="el-icon-finished"></i>
+					<span slot="title">资产清单</span>
+				</el-menu-item>
+				<el-menu-item index="9">
+					<i class="el-icon-folder-add"></i>
+					<span slot="title">配置备份</span>
+				</el-menu-item>
+				<el-menu-item index="10">
+					<i class="el-icon-files"></i>
+					<span slot="title">服务台账</span>
+				</el-menu-item>
+			</el-menu>
+		</div>
+
+	</div>
 </template>
 
 
@@ -44,7 +71,7 @@
 		name: "myaside",
 		data() {
 			return {
-				isCollapse: true
+				isCollapse: false
 			};
 		},
 		methods: {
@@ -60,18 +87,34 @@
 </script>
 <style>
 	.el-aside {
-		background-color: #545c64;
+		background-color: #ffffff;
 		color: #333;
 		text-align: center;
 		line-height: 200px;
 	}
+
 	.el-menu {
 		border-right: solid 0px #e6e6e6;
 		list-style: none;
 		position: relative;
 		margin: 0;
 		padding-left: 0;
-		background-color: #FFF;
+		background-color: #e0f3ff;
 	}
-
+	
+	.el-menu-item {
+	    font-size: 14px;
+	    color: #e0f3ff;
+	    padding: 0 20px;
+	    cursor: pointer;
+	    -webkit-transition: border-color .3s,background-color .3s,color .3s;
+	    transition: border-color .3s,background-color .3s,color .3s;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+	
+	.Logo{
+		height: 60px;
+		background: #fafbfc;
+	}
 </style>
