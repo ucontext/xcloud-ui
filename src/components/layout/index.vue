@@ -37,23 +37,20 @@
 
 	.el-main {
 		background-color: #E9EEF3;
-		color: #333;
-		text-align: center;
-		// line-height: 160px;
 	}
 
-	.el-container .is-vertical {
-		-webkit-box-orient: vertical;
-		-ms-flex-direction: column;
-		flex-direction: column;
-	}
+	// .el-container .is-vertical {
+	// 	-webkit-box-orient: vertical;
+	// 	-ms-flex-direction: column;
+	// 	flex-direction: column;
+	// }
 
-	.el-container:nth-child(5) .el-aside,
-	.el-container:nth-child(6) .el-aside {
-		line-height: 260px;
-	}
+	// .el-container:nth-child(5) .el-aside,
+	// .el-container:nth-child(6) .el-aside {
+	// 	line-height: 260px;
+	// }
 
-	.el-container:nth-child(7) .el-aside {
-		line-height: 320px;
-	}
+	// .el-container:nth-child(7) .el-aside {
+	// 	line-height: 320px;
+	// }
 </style>

@@ -1,17 +1,14 @@
 <template>
 	<div>
-		<div class="Logo">
-			Logo
+		<div class="logo" @click.prevent="toggleSideBar">
+			<i v-show="!isCollapse" class="el-icon-cirle-plus"></i>
+			<i v-show="isCollapse" class="el-icon-remove"></i>
 		</div>
 
 		<div>
-			<el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
-			  <i class="el-icon-location"></i>
-			  <i class="el-icon-location"></i>
-			</el-radio-group>
-			<el-menu :router="true" default-active="1-2" class="el-menu-vertical-demo" 
-			background-color="#ffffff" text-color="#c8cacc" active-text-color="#5c6268"
-			@open="handleOpen" @close="handleClose" :collapse="isCollapse">
+
+			<el-menu :router="true" default-active="2" class="el-menu-vertical-demo" background-color="#212c32" text-color="#fff"
+			 active-text-color="#fff" >
 				<el-submenu index="1">
 					<template slot="title">
 						<i class="el-icon-location"></i>
@@ -80,14 +77,17 @@
 			},
 			handleClose(key, keyPath) {
 				console.log(key, keyPath);
-			}
+			},
+			toggleSideBar() {
+				this.isCollapse = !this.isCollapse;
+			},
 		}
 
 	}
 </script>
 <style>
 	.el-aside {
-		background-color: #ffffff;
+		background-color: #212c32;
 		color: #333;
 		text-align: center;
 		line-height: 200px;
@@ -101,20 +101,22 @@
 		padding-left: 0;
 		background-color: #e0f3ff;
 	}
-	
+
 	.el-menu-item {
-	    font-size: 14px;
-	    color: #e0f3ff;
-	    padding: 0 20px;
-	    cursor: pointer;
-	    -webkit-transition: border-color .3s,background-color .3s,color .3s;
-	    transition: border-color .3s,background-color .3s,color .3s;
-	    -webkit-box-sizing: border-box;
-	    box-sizing: border-box;
+		font-size: 14px;
+		color: #e0f3ff;
+		padding: 0 20px;
+		cursor: pointer;
+		-webkit-transition: border-color .3s, background-color .3s, color .3s;
+		transition: border-color .3s, background-color .3s, color .3s;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
 	}
-	
-	.Logo{
-		height: 60px;
+
+	.logo {
 		background: #fafbfc;
+		width: 280px;
+		height: 60px;
+		cursor: pointer;
 	}
 </style>

@@ -1,27 +1,37 @@
 <template>
-
-<el-tabs type="border-card">
-  <el-tab-pane>
-    <span slot="label"><i class="el-icon-date"></i> 我的行程</span>
-    我的行程
-  </el-tab-pane>
-  <el-tab-pane label="消息中心">消息中心</el-tab-pane>
-  <el-tab-pane label="角色管理">角色管理</el-tab-pane>
-  <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>
-</el-tabs>
-	
+	<el-row :gutter="20">
+		<el-col :span="7">
+			<div class="grid-content bg-purple">
+				<cardleft :message="msg"></cardleft>
+			</div>
+		</el-col>
+		<el-col :span="17">
+			<div class="grid-content bg-purple">
+				<cardbody :add="add" :cat="cat" :inbox="inbox"></cardbody>
+			</div>
+		</el-col>
+	</el-row>
 </template>
 
 <script>
-	import addmobile from "@/components/mobile/addmobile.vue";
+	import cardbody from '@/components/document/cardbody.vue'
+	import cardleft from '@/components/document/cardleft.vue'
 	export default {
 		data() {
 			return {
-				
+				activeName: 'first',
+				msg:'hhh',
+				add:'新增事件',
+				cat:'查看事件',
+				inbox:'终端报告',
 			};
 		},
-		components: {
-			addmobile
+		components:{
+			cardbody,cardleft
 		}
 	};
 </script>
+
+<style>
+	
+</style>

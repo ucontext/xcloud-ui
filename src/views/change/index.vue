@@ -1,21 +1,39 @@
 <template>
-	<div>
-		
-		<el-tabs :tab-position="tabPosition" style="height: 200px;">
-			<el-tab-pane label="新增变更">新增变更</el-tab-pane>
-			<el-tab-pane label="查看变更">查看变更</el-tab-pane>
-			<el-tab-pane label="角色管理">角色管理</el-tab-pane>
-			<el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>
-		</el-tabs>
-	</div>
+	<el-row :gutter="20">
+		<el-col :span="7">
+			<div class="grid-content bg-purple">
+				<cardleft :message="msg"></cardleft>
+			</div>
+		</el-col>
+		<el-col :span="17">
+			<div class="grid-content bg-purple">
+				<cardbody :add="add" :cat="cat" :inbox="inbox"></cardbody>
+			</div>
+		</el-col>
+	</el-row>
+
+
 </template>
 
 <script>
+	import cardbody from '@/components/document/cardbody.vue'
+	import cardleft from '@/components/document/cardleft.vue'
 	export default {
 		data() {
 			return {
-				tabPosition: 'left'
+				activeName: 'first',
+				msg:'hhh',
+				add:'新增变更',
+				cat:'查看变更',
+				inbox:'归档变更',
 			};
+		},
+		components:{
+			cardbody,cardleft
 		}
 	};
 </script>
+
+<style>
+	
+</style>
