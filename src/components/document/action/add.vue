@@ -65,8 +65,6 @@
 					<el-radio-group v-model="ruleForm.os">
 						<el-radio label="Windows 7"></el-radio>
 						<el-radio label="Windows 10"></el-radio>
-						<el-radio label="中标麒麟"></el-radio>
-						<el-radio label="银河麒麟"></el-radio>
 						<el-radio label="其它"></el-radio>
 					</el-radio-group>
 				</el-form-item>
