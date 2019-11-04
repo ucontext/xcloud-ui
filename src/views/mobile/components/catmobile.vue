@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<el-table :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
- style="width: 100%">
+ style="width: 100%" >
 			<el-table-column type="expand">
 				<template slot-scope="props">
 					<el-form label-position="left" inline class="demo-table-expand">
@@ -17,10 +17,13 @@
 						<el-form-item label="位置">
 							<span>{{ props.row.build }}</span>
 						</el-form-item>
-						<el-form-item label="类型">
+						<el-form-item label="事件类型">
 							<span>{{ props.row.type }}</span>
 						</el-form-item>
-						<el-form-item label="时长">
+						<el-form-item label="操作系统" >
+							<span>{{ props.row.os }}</span>
+						</el-form-item>
+						<el-form-item label="处理时长">
 							<span>{{ props.row.pctime }}</span>
 						</el-form-item>
 						<el-form-item label="事件内容">
@@ -39,7 +42,7 @@
 			</el-table-column>
 			<el-table-column label="人员" prop="person">
 			</el-table-column>
-			<el-table-column label="位置" prop="build" width="150px">
+			<el-table-column label="位置" prop="build">
 			</el-table-column>
 			<el-table-column label="类型" prop="type">
 			</el-table-column>
@@ -66,6 +69,7 @@
 					build: '',
 					type: '',
 					pctime: '',
+					os:'',
 					person: '',
 				}],
 				currentPage: 1, //默认显示第一页
@@ -87,7 +91,7 @@
 		created() {
 			this.totalNum=this.tableData.length;
 			
-			this.$axios.get("/basic/show")
+			this.$axios.get("/basic/show/")
 				.then(res => {
 					this.tableData = res.data
 					this.totalEvent = res.data.length
