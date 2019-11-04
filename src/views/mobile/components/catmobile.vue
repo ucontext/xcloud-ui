@@ -35,11 +35,11 @@
 			<el-table-column v-for="(item,index) in tableData.date" :key="index"></el-table-column>
 			<el-table-column label="日期" prop="date">
 			</el-table-column>
-			<el-table-column label="时间" prop="time">
+			<el-table-column label="时间" prop="time" >
 			</el-table-column>
 			<el-table-column label="人员" prop="person">
 			</el-table-column>
-			<el-table-column label="位置" prop="build" width="150px">
+			<el-table-column label="位置" prop="build">
 			</el-table-column>
 			<el-table-column label="类型" prop="type">
 			</el-table-column>
