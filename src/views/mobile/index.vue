@@ -7,15 +7,22 @@
 		</el-col>
 		<el-col :span="17">
 			<div class="grid-content bg-purple">
-				<cardbody :add="add" :cat="cat" :inbox="inbox"></cardbody>
+				<cardbody :add="add" :cat="cat" :inbox="inbox">
+					<template slot="add">
+						<add></add>
+					</template>
+				</cardbody>
 			</div>
 		</el-col>
 	</el-row>
 </template>
 
 <script>
-	import cardbody from '@/components/document/cardbody.vue'
-	import cardleft from '@/components/document/cardleft.vue'
+	import cardbody from '@/components/document/cardbody.vue';
+	import cardleft from '@/components/document/cardleft.vue';
+	
+	import add from "@/views/mobile/components/add.vue";
+	
 	export default {
 		data() {
 			return {
@@ -27,7 +34,7 @@
 			};
 		},
 		components:{
-			cardbody,cardleft
+			cardbody,cardleft,add
 		}
 	};
 </script>

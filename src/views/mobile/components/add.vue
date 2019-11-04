@@ -12,29 +12,25 @@
 				<el-row :gutter="20">
 					<el-col :span="12">
 						<el-form-item label="日期" prop="date1" required>
-							<div class="block">
-								<el-date-picker v-model="ruleForm.date1" type="date" placeholder="选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd"
-								 style="width: 94%;">
-								</el-date-picker>
-							</div>
+
+							<el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1" value-format="yyyy-MM-dd" style="width: 94%;"></el-date-picker>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
 						<el-form-item label="时间" prop="date2" required>
-							<el-time-picker v-model="ruleForm.date2" :picker-options="{
-									      selectableRange: '07:00:00 - 20:59:59'
-									    }"
-							 placeholder="选择时间" style="width: 94%;">
+
+							<el-time-picker placeholder="选择时间" v-model="ruleForm.date2" value-format="hh:mm:ss" style="width: 94%;">
 							</el-time-picker>
+
 						</el-form-item>
 					</el-col>
 				</el-row>
 
 				<el-row :gutter="20">
 					<el-col :span="12">
-						<el-form-item label="位置" prop="region">
-							<el-select v-model="ruleForm.region" placeholder="请选择办公楼" style="width: 94%;">
-								<el-option v-for="item in region" :key="item" :label="item.name" :value="item.name"></el-option>
+						<el-form-item label="位置" prop="location_name">
+							<el-select v-model="ruleForm.location_name" placeholder="请选择办公楼" style="width: 94%;">
+								<el-option v-for="(item,index) in region" :key="index" :label="item.name" :value="item.name"></el-option>
 							</el-select>
 						</el-form-item>
 					</el-col>
@@ -46,15 +42,15 @@
 				</el-row>
 				<el-row :gutter="15">
 					<el-col :span="12">
-						<el-form-item label="类型" prop="pctype">
-							<el-select v-model="ruleForm.pctype" placeholder="请选择类型" style="width: 94%;">
-								<el-option v-for="item in pctype" :key="item" :label="item.name" :value="item.name"></el-option>
+						<el-form-item label="类型" prop="type_name">
+							<el-select v-model="ruleForm.type_name" placeholder="请选择类型" style="width: 94%;">
+								<el-option v-for="(pcitem,index) in pctype" :key="index" :label="pcitem.name" :value="pcitem.name"></el-option>
 							</el-select>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="时长" prop="pctime">
-							<el-input v-model="ruleForm.pctime" placeholder="请输入处理时长" style="width: 94%;"></el-input>
+						<el-form-item label="时长" prop="process_time">
+							<el-input v-model="ruleForm.process_time" placeholder="请输入处理时长" style="width: 94%;"></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
@@ -77,21 +73,37 @@
 			</div>
 			<div v-if="active===3">
 				<el-card shadow="never">
-					{{ruleForm.date1}}
+					<ul>
+						<li><span>日期</span>
+							{{ruleForm.date1}}
+						</li>
+						<li><span>时间</span>
+							{{ruleForm.date2}}
+						</li>
+						<li><span>房间</span>
+							{{ruleForm.room}}</li>
+						<li><span>位置</span>
+							{{ruleForm.location_name}}</li>
+						<li><span>类型</span>
+							{{ruleForm.type_name}}
+						</li>
+					</ul>
 				</el-card>
 			</div>
 			<div v-if="active===4">
-				<el-card shadow="never">
-					{{ruleForm.date1}}
-				</el-card>
+
+				提交完成
+				<el-button size="medium" @click="resetForm('ruleForm')">重新提交</el-button>
 			</div>
 			<div style="margin-left: 100px;">
-				<el-button size="medium" @click="prev" v-if="active==2||active==3||active==4">上一步</el-button>
-				<el-button size="medium" @click="checkForm('ruleForm');next()" v-if="active==1||active==2||active==3">下一步</el-button>
-				<el-button type="primary" size="medium"  v-if="active==4">提交</el-button>
+				<el-button size="medium" @click="prev" v-if="active==2||active==3">上一步</el-button>
+				<el-button size="medium" @click="next" v-if="active==1||active==2">下一步</el-button>
+				<el-button type="primary" @click="submitForm('ruleForm')" size="medium" v-if="active==3">提交</el-button>
 			</div>
 		</el-form>
 	</div>
+
+
 </template>
 
 <script>
@@ -103,11 +115,11 @@
 				pctype: "",
 				ruleForm: {
 					room: '',
-					region: '',
+					location_name: '',
 					date1: '',
 					date2: '',
-					pctype: '',
-					pctime: '',
+					type_name: '',
+					process_time: '',
 					os: '',
 					content: "",
 					solution: ""
@@ -125,7 +137,7 @@
 							trigger: 'blur'
 						}
 					],
-					region: [{
+					location_name: [{
 						required: true,
 						message: '请选择位置',
 						trigger: 'change'
@@ -142,17 +154,17 @@
 						message: '请选择时间',
 						trigger: 'change'
 					}],
-					pctype: [{
+					type_name: [{
 						required: true,
 						message: '请选择事件类型',
 						trigger: 'change'
 					}],
-					pctime: [{
+					process_time: [{
 						required: true,
 						message: '请输入处理时长',
 						trigger: 'change'
 					}],
-					os1: [{
+					os: [{
 						// required: true,
 						message: '请选择操作系统',
 						trigger: 'blur'
@@ -160,18 +172,61 @@
 				}
 			};
 		},
+
 		methods: {
-			checkForm(formName) {
+			handleClick(tab, event) {
+				console.log(tab, event);
+			},
+
+			submitForm(formName) {
 				this.$refs[formName].validate((valid) => {
-					if (valid) {
-						// this.next()
-						console.log(this.$refs[formName])
+					if (valid) {					
+						this.$axios({
+							method: "post",
+							url: "/event/add",
+							headers: {
+								'Content-type': 'application/x-www-form-urlencoded'
+							},
+							// let formData = new FormData();
+							// formData.append
+							data: {
+								date: this.ruleForm.date1,
+								time: this.ruleForm.date2,
+								location_name: this.ruleForm.location_name,
+								room: this.ruleForm.room,
+								type_name: this.ruleForm.type_name,
+								process_time: this.ruleForm.process_time,
+								// os: '',
+								content: this.ruleForm.content,
+								solution: this.ruleForm.solution,
+							},
+							transformRequest: [function(data) {
+								let ret = ''
+								for (let it in data) {
+									ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+								}
+								return ret
+							}],
+						}).then(res => {
+							if (res.status === 200 || res.status===302 ) {
+								// console.log(res);
+							
+								this.active=4
+							}
+						}).catch(err => {
+							console.log("调用错误", err)
+						});
 					} else {
 						console.log('error submit!!');
 						return false;
 					}
 				});
 			},
+			resetForm(formName) {
+				this.$refs[formName].resetFields();
+				this.active=1
+			},
+
 			prev() {
 				--this.active;
 				if (this.active < 1) this.active = 1
@@ -179,23 +234,23 @@
 			next() {
 				if (this.active++ > 3) this.active = 1
 			}
-			
 		},
+
 		created() {
 			// 组件中使用get方法
-			this.$axios.get('build').then(res => {
-				
+			this.$axios.get('/basic/build').then(res => {
+
 				this.region = res.data
 			}).catch(err => {
 				console.log("调用错误", err)
 			});
-			this.$axios.get('pctype').then(res => {
-				
+			this.$axios.get('/basic/pctype').then(res => {
+
 				this.pctype = res.data
 			}).catch(err => {
 				console.log("调用错误", err)
-			})
-		}
+			});
+		},
 	}
 </script>
 

@@ -3,13 +3,13 @@
 		<el-card class="box-card">
 			<el-tabs v-model="activeName" @tab-click="handleClick">
 				<el-tab-pane :label="add" name="first">
-					<add></add>
+					<slot name="add"></slot>
 				</el-tab-pane>
 				<el-tab-pane :label="cat" name="second">
-					<cat></cat>
+					<slot name="cat"></slot>
 				</el-tab-pane>
 				<el-tab-pane :label="inbox" name="third">
-					<inbox></inbox>
+					<slot name="inbox"></slot>
 				</el-tab-pane>
 			</el-tabs>
 		</el-card>
@@ -17,24 +17,11 @@
 </template>
 
 <script>
-	import add from "@/components/document/action/add.vue";
-	import cat from "@/components/document/action/cat.vue";
-	import inbox from "@/components/document/action/inbox.vue";
 	export default {
 		data() {
 			return {
-				activeName: "first"
-			};
-		},
-		methods: {
-			handleClick(tab, event) {
-				console.log(tab, event);
+				activeName: "first",
 			}
-		},
-		components: {
-			
-			add,cat,inbox
-			
 		},
 		props: ["add", "cat", "inbox"]
 	};

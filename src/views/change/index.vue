@@ -29,7 +29,7 @@
 			};
 		},
 		components:{
-			cardbody,cardleft
+			cardleft,cardbody
 		}
 	};
 </script>
