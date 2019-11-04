@@ -31,6 +31,7 @@
 						</el-form-item>
 						<el-form-item label="处理过程">
 							<span>{{ props.row.solution }}</span>
+
 						</el-form-item>
 					</el-form>
 				</template>
@@ -38,7 +39,7 @@
 			<el-table-column v-for="(item,index) in tableData.date" :key="index"></el-table-column>
 			<el-table-column label="日期" prop="date">
 			</el-table-column>
-			<el-table-column label="时间" prop="time">
+			<el-table-column label="时间" prop="time" >
 			</el-table-column>
 			<el-table-column label="人员" prop="person">
 			</el-table-column>
