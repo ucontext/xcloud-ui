@@ -8,36 +8,36 @@ import change from "@/views/change/index";
 import fault from "@/views/fault/index";
 import login from "@/views/login/login";
 
+const routes = [
+  {
+    path: "/",
 
-const routes = [{
-		path: "/",
-
-		component: login,
-	},
-	{
-		path: "/login",
-		name: "login",
-		component: login,
-	},
-	{
-		path: "/mobile",
-		name: "mobile",
-		component: mobile
-	},
-	{
-		path: "/change",
-		name: "change",
-		component: change
-	},
-	{
-		path: "/fault",
-		name: "fault",
-		component: fault
-	}
+    component: login
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: login
+  },
+  {
+    path: "/mobile",
+    name: "mobile",
+    component: mobile
+  },
+  {
+    path: "/change",
+    name: "change",
+    component: change
+  },
+  {
+    path: "/fault",
+    name: "fault",
+    component: fault
+  }
 ];
 
 const router = new VueRouter({
-	routes
+  routes
 });
 
 export default router;
