@@ -1,102 +1,120 @@
 <template>
-  <el-table
-    :data="tableData"
-    style="width: 100%">
-    <el-table-column type="expand">
-      <template slot-scope="props">
-        <el-form label-position="left" inline class="demo-table-expand">
-          <el-form-item label="商品名称">
-            <span>{{ props.row.name }}</span>
-          </el-form-item>
-          <el-form-item label="所属店铺">
-            <span>{{ props.row.shop }}</span>
-          </el-form-item>
-          <el-form-item label="商品 ID">
-            <span>{{ props.row.id }}</span>
-          </el-form-item>
-          <el-form-item label="店铺 ID">
-            <span>{{ props.row.shopId }}</span>
-          </el-form-item>
-          <el-form-item label="商品分类">
-            <span>{{ props.row.category }}</span>
-          </el-form-item>
-          <el-form-item label="店铺地址">
-            <span>{{ props.row.address }}</span>
-          </el-form-item>
-          <el-form-item label="商品描述">
-            <span>{{ props.row.desc }}</span>
-          </el-form-item>
-        </el-form>
-      </template>
-    </el-table-column>
-    <el-table-column
-      label="商品 ID"
-      prop="id">
-    </el-table-column>
-    <el-table-column
-      label="商品名称"
-      prop="name">
-    </el-table-column>
-    <el-table-column
-      label="描述"
-      prop="desc">
-    </el-table-column>
-  </el-table>
+	<div>
+		<el-table :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+ style="width: 100%">
+			<el-table-column type="expand">
+				<template slot-scope="props">
+					<el-form label-position="left" inline class="demo-table-expand">
+						<el-form-item label="日期">
+							<span>{{ props.row.date }}</span>
+						</el-form-item>
+						<el-form-item label="时间">
+							<span>{{ props.row.time }}</span>
+						</el-form-item>
+						<el-form-item label="人员">
+							<span>{{ props.row.person }}</span>
+						</el-form-item>
+						<el-form-item label="位置">
+							<span>{{ props.row.build }}</span>
+						</el-form-item>
+						<el-form-item label="类型">
+							<span>{{ props.row.type }}</span>
+						</el-form-item>
+						<el-form-item label="时长">
+							<span>{{ props.row.pctime }}</span>
+						</el-form-item>
+						<el-form-item label="事件内容">
+							<span>{{ props.row.content }}</span>
+						</el-form-item>
+						<el-form-item label="处理过程">
+							<span>{{ props.row.solution }}</span>
+						</el-form-item>
+					</el-form>
+				</template>
+			</el-table-column>
+			<el-table-column v-for="(item,index) in tableData.date" :key="index"></el-table-column>
+			<el-table-column label="日期" prop="date">
+			</el-table-column>
+			<el-table-column label="时间" prop="time">
+			</el-table-column>
+			<el-table-column label="人员" prop="person">
+			</el-table-column>
+			<el-table-column label="位置" prop="build" width="150px">
+			</el-table-column>
+			<el-table-column label="类型" prop="type">
+			</el-table-column>
+		</el-table>
+
+		<div class="block">
+
+			<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage"
+			 :page-size="pageSize" layout="total, prev, pager, next" :total="totalEvent">>
+			</el-pagination>
+		</div>
+	</div>
 </template>
 
-<style>
-  .demo-table-expand {
-    font-size: 0;
-  }
-  .demo-table-expand label {
-    width: 90px;
-    color: #99a9bf;
-  }
-  .demo-table-expand .el-form-item {
-    margin-right: 0;
-    margin-bottom: 0;
-    width: 50%;
-  }
-</style>
+
 
 <script>
-  export default {
-    data() {
-      return {
-        tableData: [{
-          id: '12987122',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }, {
-          id: '12987123',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }, {
-          id: '12987125',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }, {
-          id: '12987126',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }]
-      }
-    }
-  }
+	export default {
+		data() {
+			return {
+				tableData: [{
+					date: '',
+					time: '',
+					build: '',
+					type: '',
+					pctime: '',
+					person: '',
+				}],
+				currentPage: 1, //默认显示第一页
+				pageSize: 6, //默认每页显示10条
+				totalNum: 0 ,//总页数
+				totalEvent: 0
+			}
+		},
+		methods: {
+			handleSizeChange(val) {
+				console.log(`每页 ${val} 条`);
+				this.pageSize = val; //动态改变
+			},
+			handleCurrentChange(val) {
+				console.log(`当前页: ${val}`);
+				this.currentPage = val; //动态改变
+			}
+		},
+		created() {
+			this.totalNum=this.tableData.length;
+			
+			this.$axios.get("/basic/show")
+				.then(res => {
+					this.tableData = res.data
+					this.totalEvent = res.data.length
+					
+				})
+				.catch(err => {
+					console.log("调用错误", err);
+				})
+				
+		}
+			
+	}
 </script>
+
+<style scoped>
+	.demo-table-expand {
+		font-size: 0;
+	}
+
+	.demo-table-expand label {
+		width: 90px;
+		color: #99a9bf;
+	}
+
+	.demo-table-expand .el-form-item {
+		margin-right: 0;
+		margin-bottom: 0;
+		width: 50%;
+	}
+</style>
