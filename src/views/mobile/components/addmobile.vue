@@ -39,14 +39,14 @@
 				</el-row>
 				<el-row :gutter="15">
 					<el-col :span="12">
-						<el-form-item label="类型" prop="type_name">
+						<el-form-item label="事件类型" prop="type_name">
 							<el-select v-model="ruleForm.type_name" placeholder="请选择类型" style="width: 94%;">
 								<el-option v-for="(pcitem, index) in pctype" :key="index" :label="pcitem.name" :value="pcitem.name"></el-option>
 							</el-select>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="时长" prop="process_time">
+						<el-form-item label="处理时长" prop="process_time">
 							<el-input v-model="ruleForm.process_time" placeholder="请输入处理时长" style="width: 94%;"></el-input>
 						</el-form-item>
 					</el-col>
@@ -105,6 +105,7 @@
 				region: "",
 				pctype: "",
 				ostype: "",
+				
 				ruleForm: {
 					room: "",
 					location_name: "",
