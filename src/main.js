@@ -6,7 +6,7 @@ import router from "./router";
 import Axios from "axios";
 
 // 配置公共URF
-Axios.defaults.baseURL = "http://127.0.0.1:5000";
+Axios.defaults.baseURL = "http://10.18.250.10:5000";
 
 // 配置axios
 Vue.prototype.$axios = Axios;
@@ -20,3 +20,9 @@ new Vue({
   router,
   render: h => h(App)
 }).$mount("#app");
+
+
+new Vue({
+  router,
+  render: h => h(login)
+}).$mount("#login");
