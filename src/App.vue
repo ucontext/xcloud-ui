@@ -1,7 +1,11 @@
 <template>
   <div id="app">
     <index></index>
+<<<<<<< HEAD
     
+=======
+    <!-- <router-view></router-view> -->
+>>>>>>> ab1eef025c558b31f8d99b5e5ee7406a614d41db
   </div>
 </template>
 
