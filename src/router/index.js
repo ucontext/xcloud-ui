@@ -6,7 +6,7 @@ Vue.use(VueRouter);
 import mobile from "@/views/mobile/index";
 import change from "@/views/change/index";
 import fault from "@/views/fault/index";
-import login from "@/views/login/login";
+import login from "@/views/login/index";
 
 const routes = [
   {
