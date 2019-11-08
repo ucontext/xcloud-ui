@@ -5,9 +5,11 @@
         <li
           v-for="item in menuTab"
           :key="item.id"
-          :class="{'current':item.current}"
+          :class="{ current: item.current }"
           @click="toggleMenu(item)"
-        >{{item.tex}}</li>
+        >
+          {{ item.tex }}
+        </li>
       </ul>
       <el-form
         :model="ruleForm"
@@ -19,28 +21,45 @@
       >
         <el-form-item prop="username" class="item-form">
           <label>邮箱</label>
-          <el-input type="text" v-model="ruleForm.username" autocomplete="off"></el-input>
+          <el-input
+            type="text"
+            v-model="ruleForm.username"
+            autocomplete="off"
+          ></el-input>
         </el-form-item>
 
         <el-form-item prop="password" class="item-form">
           <label>密码</label>
           <el-input
-            type="password"
+            type="text"
             v-model="ruleForm.password"
             autocomplete="off"
             minlength="6"
             maxlength="20"
           ></el-input>
         </el-form-item>
-
-
+		
+		<el-form-item prop="passwords" class="item-form" v-if="model === 'register'">
+		  <label>确认密码</label>
+		  <el-input
+		    type="text"
+		    v-model="ruleForm.passwords"
+		    autocomplete="off"
+		    minlength="6"
+		    maxlength="20"
+		  ></el-input>
+		</el-form-item>
 
         <el-form-item prop="code" class="item-form">
           <label>验证码</label>
-
           <el-row :gutter="10">
             <el-col :span="15">
-              <el-input v-model="ruleForm.code" autocomplete="off" minlength="6" maxlength="20"></el-input>
+              <el-input
+                v-model="ruleForm.code"
+                autocomplete="off"
+                minlength="6"
+                maxlength="20"
+              ></el-input>
             </el-col>
             <el-col :span="9">
               <el-button type="success" class="block">获取验证码</el-button>
@@ -49,7 +68,12 @@
         </el-form-item>
 
         <el-form-item>
-          <el-button type="danger" @click="submitForm('ruleForm')" class="login-btn block">提交</el-button>
+          <el-button
+            type="danger"
+            @click="submitForm('ruleForm')"
+            class="login-btn block"
+            >提交</el-button
+          >
         </el-form-item>
       </el-form>
     </div>
@@ -57,7 +81,7 @@
 </template>
 
 <script>
-import {validate} from "@/utils/validate";
+import { validateEmail,validatePass } from "@/utils/validate.js";
 export default {
   name: "login",
   data() {
@@ -83,9 +107,23 @@ export default {
       }
     };
 
-
+	// 验证确认密码
+    var validatePasswords = (rule, value, callback) => {
+	  // 使用v-show时，提交表单问题处理
+	  if(this.model==='login'){
+		  callback();
+	  }
+      if (value === "") {
+        callback(new Error("请输入密码"));
+      } else if (value != this.ruleForm.password) {
+        callback(new Error("两次密码不一致"));
+      } else {
+        callback();
+      }
+    };
+	
     // 验证验证码
-    var checkCode = (rule, value, callback) => {
+    var validateCode = (rule, value, callback) => {
       let reg = /^[a-z0-9]{6}$/;
       if (value === "") {
         callback(new Error("请输入验证码"));
@@ -97,26 +135,51 @@ export default {
     };
     return {
       menuTab: [
-        { tex: "登录", current: true },
-        { tex: "注册", current: false }
+        {
+          tex: "登录",
+          current: true,
+		  type: 'login'
+        },
+        {
+          tex: "注册",
+          current: false,
+		  type: 'register'
+        }
       ],
+	  model: 'login',
       isActive: true,
       ruleForm: {
         username: "",
         password: "",
-     
-        code: "",
+		passwords: "",
+        code: ""
       },
       rules: {
         username: [
-          { validator: validateUsername, trigger: "blur" }
+          {
+            validator: validateUsername,
+            trigger: "blur"
+          }
         ],
         password: [
-          { validator: validatePassword,  trigger: "blur" }
+          {
+            validator: validatePassword,
+            trigger: "blur"
+          }
         ],
-       
+		
+		passwords: [
+			{
+				validator: validatePasswords,
+				trigger: "blur"
+			}
+		],
+		
         code: [
-          { validator: checkCode, trigger: "blur" }
+          {
+            validator: validateCode,
+            trigger: "blur"
+          }
         ]
       }
     };
@@ -127,37 +190,38 @@ export default {
     login() {
       // 假设登陆成功，则跳转到 index 组件
       this.$router.replace("/index");
-	  this.$axios({
-	  		method: "post",
-	  		url: "/login1",
-	  		data: {
-	  			username: this.username,
-	  			password: this.password,
-	  		},
-	  	})
-	  	.then(function(response) {
-	  		console.log(response.data);
-	  		if (parseInt(response.data.status) === 400) {
-	  			// 登录失败
-	  			this.username = '';
-	  			this.password = '';
-	  		} else if (parseInt(response.data.status) === 200) {
-	  			// 存token
-	  			sessionStorage.setItem('token', response.data.token);
-	  			// 登录成功,跳转到index
-	  			this.$router.push('mobile')
-	  		}
-	  	})
-	  	.catch(function(error) {
-	  		console.log(error)
-	  	})
-	  
+      this.$axios({
+        method: "post",
+        url: "/login1",
+        data: {
+          username: this.username,
+          password: this.password
+        }
+      })
+        .then(function(response) {
+          console.log(response.data);
+          if (parseInt(response.data.status) === 400) {
+            // 登录失败
+            this.username = "";
+            this.password = "";
+          } else if (parseInt(response.data.status) === 200) {
+            // 存token
+            sessionStorage.setItem("token", response.data.token);
+            // 登录成功,跳转到index
+            this.$router.push("mobile");
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     },
     toggleMenu(data) {
+	  
       // ES6写法
       this.menuTab.forEach(elem => (elem.current = false));
       // 高光
       data.current = true;
+	  this.model = data.type
     },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
@@ -178,6 +242,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
 .el-row {
   margin: 0;
   padding: 0;
@@ -195,6 +260,7 @@ body {
 
 .menu-tab {
   text-align: center;
+
   li {
     display: inline-block;
     width: 88px;
@@ -213,22 +279,25 @@ body {
 
 .login-form {
   margin-top: 29px;
+
   label {
     display: block;
     font-size: 14px;
     color: #fff;
     margin-bottom: 3px;
   }
+
   .item-form {
     margin-bottom: 13px;
   }
+
   .block {
     width: 100%;
     display: block;
   }
+
   .login-btn {
     margin-top: 19px;
   }
 }
-
 </style>

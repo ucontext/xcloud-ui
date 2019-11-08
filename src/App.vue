@@ -1,15 +1,15 @@
 <template>
   <div id="app">
-    <!-- <index></index> -->
-    <router-view></router-view>
+    <index></index>
+    
   </div>
 </template>
 
 <script>
-// import index from "@/components/layout/index.vue";
+import index from "@/components/layout/index.vue";
 export default {
   components: {
-    // index
+    index
   }
 };
 </script>
