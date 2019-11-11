@@ -94,7 +94,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .el-form-item__label {
   padding: 0 0 5px;
 }

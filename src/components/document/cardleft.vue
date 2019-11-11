@@ -17,7 +17,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 .text {
   font-size: 14px;
 }

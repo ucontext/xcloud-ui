@@ -269,7 +269,7 @@
 	};
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 	.el-col .el-col-12 {
 		height: 50px;
 		padding: 0 10px;

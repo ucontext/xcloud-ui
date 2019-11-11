@@ -72,7 +72,7 @@
             type="danger"
             @click="submitForm('ruleForm')"
             class="login-btn block"
-            >提交</el-button
+            >{{ model==='login' ? '登录' : '注册'}}</el-button
           >
         </el-form-item>
       </el-form>
@@ -138,12 +138,12 @@ export default {
         {
           tex: "登录",
           current: true,
-		  type: 'login'
+		      type: 'login'
         },
         {
           tex: "注册",
           current: false,
-		  type: 'register'
+		      type: 'register'
         }
       ],
 	  model: 'login',
@@ -238,6 +238,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+html,
 body {
   margin: 0;
   padding: 0;
@@ -249,7 +250,9 @@ body {
 }
 
 #login {
-  height: 100vh;
+  height: 100%;
+  margin: 0;
+  padding: 0;
   background-color: #344a5f;
 }
 

@@ -107,7 +107,7 @@
 	}
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 	.demo-table-expand {
 		font-size: 0;
 	}
