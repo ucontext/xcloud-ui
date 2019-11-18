@@ -7,7 +7,16 @@
     </el-col>
     <el-col :span="17">
       <div class="grid-content bg-purple">
-        <cardbody :add="add" :cat="cat" :inbox="inbox"></cardbody>
+        <cardbody :add="add" :cat="cat" :inbox="inbox">
+          
+          <template slot="add">
+            <addchange></addchange>
+          </template>
+          <template slot="cat">
+            <catchange></catchange>
+          </template>
+        
+        </cardbody>
       </div>
     </el-col>
   </el-row>
@@ -16,6 +25,10 @@
 <script>
 import cardbody from "@/components/document/cardbody.vue";
 import cardleft from "@/components/document/cardleft.vue";
+
+import addchange from "./components/addchange";
+import catchange from "./components/catchange";
+
 export default {
   data() {
     return {
@@ -28,7 +41,9 @@ export default {
   },
   components: {
     cardleft,
-    cardbody
+    cardbody,
+    addchange,
+    catchange
   }
 };
 </script>

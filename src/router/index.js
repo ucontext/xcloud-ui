@@ -35,34 +35,62 @@ const routes = [
     },
   },
   {
-    path: "/sip",
-    name: "sip",
-    meta: {
-      name: "态势感知",
-      icon: "el-icon-menu"
-    }
-  },
-  {
     path: "/inspect",
     name: "inspect",
     meta: {
       name: "设备巡检",
       icon: "el-icon-document"
-    }
+    },
+    children: [
+      {
+        path: "/netreport",
+        name: "netreport",
+        meta: {
+          name: "网络报告",
+          icon: "el-icon-menu"
+        }
+      },
+      {
+        path: "/cloudreport",
+        name: "cloudreport",
+        meta: {
+          name: "主机报告",
+          icon: "el-icon-menu"
+        }
+      },
+    ]
   },
   {
     path: "/policy",
     name: "policy",
+    component: index,
     meta: {
-      name: "安全策略",
+      name: "安全管理",
       icon: "el-icon-setting"
-
-    }
+    },
+    children: [
+      {
+        path: "/sip",
+        name: "sip",
+        meta: {
+          name: "态势感知",
+          icon: "el-icon-menu"
+        }
+      },
+      {
+        path: "/line",
+        name: "line",
+        meta: {
+          name: "基线核查",
+          icon: "el-icon-menu"
+        }
+      },
+    ]
   },
 
   {
-    path: "/change",
-    name: "change",
+    path: "/event",
+    name: "event",
     component: index,
     meta: {
       name: "事件记录",
@@ -125,8 +153,26 @@ const routes = [
   }
 ];
 
+
 const router = new VueRouter({
   routes
+});
+
+/**
+ * 路由守卫
+ */
+
+router.beforeEach((to, from, next) => {
+  if (to.path === '/login') {
+    next();
+  } else {
+    let token = sessionStorage.getItem('Authorization');
+    if (token === 'null' || token === '') {
+      next('/login');
+    } else {
+      next();
+    }
+  }
 });
 
 export default router;

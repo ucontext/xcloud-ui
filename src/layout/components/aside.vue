@@ -9,9 +9,9 @@
       <el-menu
         :default-active="$route.path"
         class="el-menu-vertical-demo"
-        background-color="transparent"
-        text-color="#fff"
-        active-text-color="#fff"
+        
+        text-color="#484f57"
+        active-text-color="#426dd5"
         router
       >
         <template v-for="item in $router.options.routes">
@@ -55,13 +55,13 @@ export default {
   left: 0;
   width: $asside;
   height: 100vh;
-  background-color: #344a5f;
+  background-color: #ffffff;
 }
 
 .logo{
   height: 60px;
   width: $asside;
-  background-color: #212c32
+  background-color: transparent;
 }
 // .el-aside {
 //   background-color: #212c32;

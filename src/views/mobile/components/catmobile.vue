@@ -61,6 +61,7 @@
 
 
 <script>
+	import { CatEvent } from '@/api/mobile'
 	export default {
 		data() {
 			return {
@@ -92,18 +93,12 @@
 		created() {
 			this.totalNum=this.tableData.length;
 			
-			this.$axios.get("/basic/show/")
-				.then(res => {
-					this.tableData = res.data
-					this.totalEvent = res.data.length
-					
-				})
-				.catch(err => {
-					console.log("调用错误", err);
-				})
-				
-		}
 			
+			CatEvent().then( result => {
+				this.tableData = result.data
+				this.totalEvent = result.data.length
+			})
+		}		
 	}
 </script>
 

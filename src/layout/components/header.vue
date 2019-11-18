@@ -1,10 +1,12 @@
 <template>
   <div id="header-wrap">
     <div class="pull-right">
+      
       <div class="userinfo">
+        {{username}}
         <el-dropdown trigger="hover" :hide-on-click="false">
-          <span class="el-dropdown-link" style="margin:auto">
-            <el-avatar :src="logoURL" :size="46"></el-avatar>
+          <span class="el-dropdown-link">
+            <el-avatar :src="logoURL" :size="46" :fit='fit'></el-avatar>
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item icon="el-icon-user">个人中心</el-dropdown-item>
@@ -18,12 +20,20 @@
 </template>
 
 <script>
+import { GetUser } from '@/api/login'
 export default {
   name: "lheader",
   data(){
     return{
-      logoURL:"../../assets/logo.png"
+      logoURL:"../../assets/aaa.jpeg",
+      fit:"contain",
+      username:"管理员"
     }
+  },
+  created(){
+    GetUser().then(result => {
+      this.username = result.data.nickname
+    })
   }
 };
 </script>
@@ -36,7 +46,7 @@ export default {
   right: 0;
   left: $asside;
   height: 60px;
-  background-color: #fff;
+  background-color: #fafbfc;
   -webkit-box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -46,7 +56,14 @@ export default {
 
 .user-info {
   height: 100%;
-  padding: 0 32px;
   border-right: 1px solid #ededed;
 }
+.el-dropdown {
+    display: inline-block;
+    position: relative;
+    color: #606266;
+    font-size: 14px;
+    padding: 7px 20px;
+}
+
 </style>

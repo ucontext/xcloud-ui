@@ -17,7 +17,8 @@ export function stripscript(str) {
 
 export function validateEmail(value) {
     // ESLine规范要求禁用不必要的转义字符
-    let reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+    // let reg = /^([a-zA-Z]|[0-9]|)(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+    let reg = /^[A-Za-z0-9\.]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
     return !reg.test(value) ? true : false
 }
 
@@ -26,6 +27,7 @@ export function validateEmail(value) {
  */
 
  export function validatePass(value) {
-    let reg = /^(?!\D+$)(?![^a-zA-Z]+$)\S{6,20}$/;
+    // let reg = /^(?!\D+$)(?![^a-zA-Z]+$)\S{6,20}$/;
+    let reg = /^[0-9a-zA-Z]{6,20}/
     return !reg.test(value) ? true : false
  }
