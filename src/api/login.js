@@ -28,7 +28,7 @@ export function GetUser(data) {
 export function Login(data) {
     return service.request({
         method: "post",
-        url: "/login/",
+        url: "/token",
         data
     })
 }

@@ -1,52 +1,24 @@
 <template>
-  <el-row :gutter="20">
-    <el-col :span="7">
-      <div class="grid-content bg-purple">
-        <cardleft :message="msg"></cardleft>
-      </div>
-    </el-col>
-    <el-col :span="17">
-      <div class="grid-content bg-purple">
-        <cardbody :add="add" :cat="cat" :inbox="inbox">
-          
-          <template slot="add">
-            <addchange></addchange>
-          </template>
-          <template slot="cat">
-            <catchange></catchange>
-          </template>
-        
-        </cardbody>
-      </div>
-    </el-col>
-  </el-row>
+  <div>
+    <el-tabs :tab-position="tabPosition" stretch>
+      <el-tab-pane label="新增变更">
+        <addchange></addchange>
+      </el-tab-pane>
+      <el-tab-pane label="查看变更">配置管理</el-tab-pane>
+      <el-tab-pane label="变更统计">角色管理</el-tab-pane>
+    </el-tabs>
+  </div>
 </template>
-
 <script>
-import cardbody from "@/components/document/cardbody.vue";
-import cardleft from "@/components/document/cardleft.vue";
-
-import addchange from "./components/addchange";
-import catchange from "./components/catchange";
-
+import addchange from "./components/addchange"
 export default {
   data() {
     return {
-      activeName: "first",
-      msg: "hhh",
-      add: "新增变更",
-      cat: "查看变更",
-      inbox: "归档变更"
+      tabPosition: "left"
     };
   },
-  components: {
-    cardleft,
-    cardbody,
-    addchange,
-    catchange
+  components:{
+    addchange
   }
 };
 </script>
-
-<style lang="scss" scoped>
-</style>

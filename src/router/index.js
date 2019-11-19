@@ -87,7 +87,6 @@ const routes = [
       },
     ]
   },
-
   {
     path: "/event",
     name: "event",

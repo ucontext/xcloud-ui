@@ -71,7 +71,8 @@
 
 <script>
 import { validateEmail, validatePass } from "@/utils/validate.js";
-import { mapMutations } from 'vuex';
+import { Login } from "@/api/login";
+import { mapMutations } from "vuex";
 
 export default {
   name: "login",
@@ -179,8 +180,8 @@ export default {
   // 挂载完成后执行的生命周期
   mounted() {},
   methods: {
-    ...mapMutations(['changeLogin']),
-    
+    ...mapMutations(["changeLogin"]),
+
     toggleMenu(data) {
       // ES6写法
       this.menuTab.forEach(elem => (elem.current = false));
@@ -190,39 +191,29 @@ export default {
     },
 
     submitForm(formName) {
-      
       // 假设登陆成功，则跳转到 index 组件
       // this.$router.replace("/index");
       this.$refs[formName].validate(valid => {
         if (valid) {
-          console.log()
-          this.$axios({
-            method: "post",
-            url: "http://127.0.0.1:5000/v1/token",
-            data: {
-              account: this.ruleForm.email,
-              secret: this.ruleForm.password,
-              type: 100,
-            }
-          })
-            .then((response) => {
-              if (parseInt(response.status) === 400) {
-                // 登录失败
-                this.email = "";
-                this.password = "";
-                
-              } else if (parseInt(response.status) === 201)  {
-                // 存token
-                sessionStorage.setItem("token", response.data.token);
-                // 登录成功,跳转到index
-                
-                this.$router.push("index");
-                // $router.push("index");
+          let requestData = {
+            account: this.ruleForm.email,
+            secret: this.ruleForm.password,
+            type: 100
+          };
+          Login(requestData).then(response => {
+            if (parseInt(response.status) === 400) {
+              // 登录失败
+              this.email = "";
+              this.password = "";
+            } else if (parseInt(response.status) === 201) {
+              // 存token
+              sessionStorage.setItem("token", response.data.token);
+              // 登录成功,跳转到index
 
-              }
-            }).catch(function(error) {
-              console.log(error);
-            });
+              this.$router.push("index");
+              // $router.push("index");
+            }
+          });
         } else {
           console.log("error submit!!");
           return false;
@@ -243,7 +234,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 #login {
   height: 100%;
   margin: 0;
