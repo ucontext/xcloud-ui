@@ -56,12 +56,15 @@ export default {
   width: $asside;
   height: 100vh;
   background-color: #ffffff;
+  -webkit-box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.1);
 }
 
 .logo{
   height: 60px;
   width: $asside;
-  background-color: transparent;
+  background-color: #ffffff;
+  // -webkit-box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.1);
+  // background-color: transparent;
 }
 // .el-aside {
 //   background-color: #212c32;

@@ -1,37 +1,25 @@
 <template>
-  <el-row :gutter="20">
-    <el-col :span="7">
-      <div class="grid-content bg-purple">
-        <cardleft :message="msg"></cardleft>
-      </div>
-    </el-col>
-    <el-col :span="17">
-      <div class="grid-content bg-purple">
-        <cardbody :add="add" :cat="cat" :inbox="inbox"></cardbody>
-      </div>
-    </el-col>
-  </el-row>
+  <div>
+    <el-tabs :tab-position="tabPosition" stretch>
+      <el-tab-pane label="新增故障">
+        <addchange></addchange>
+      </el-tab-pane>
+      <el-tab-pane label="查看故障">查看故障</el-tab-pane>
+      <el-tab-pane label="故障统计">故障统计</el-tab-pane>
+      <el-tab-pane label="故障报告">故障报告</el-tab-pane>
+    </el-tabs>
+  </div>
 </template>
-
 <script>
-import cardbody from "@/components/document/cardbody.vue";
-import cardleft from "@/components/document/cardleft.vue";
+import addchange from "./components/addfault"
 export default {
   data() {
     return {
-      activeName: "first",
-      msg: "hhh",
-      add: "新增故障",
-      cat: "查看故障",
-      inbox: "归档故障"
+      tabPosition: "left"
     };
   },
-  components: {
-    cardbody,
-    cardleft
+  components:{
+    addchange
   }
 };
 </script>
-
-<style lang="scss" scoped>
-</style>

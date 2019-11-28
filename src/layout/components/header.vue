@@ -1,7 +1,6 @@
 <template>
   <div id="header-wrap">
     <div class="pull-right">
-      
       <div class="userinfo">
         {{username}}
         <el-dropdown trigger="hover" :hide-on-click="false">

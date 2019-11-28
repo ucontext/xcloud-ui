@@ -44,7 +44,7 @@ import { Message } from 'element-ui';
 // 手把手撸码前端API，地址 http://www.web-jshtml.cn/productApi
 
 // const BASEURL = process.env.NODE_ENV === 'production' ? '' : '/devApi';
-const BASEURL = "http://10.18.250.10:5000/v1"
+const BASEURL = "http://10.18.255.25:2019/v1"
 const service = axios.create({
     baseURL: BASEURL,  // http://192.168.0.106:8080/devApi/  == http://www.web-jshtml.cn/productapi/productapi
     // timeout: 15000,   // 超时

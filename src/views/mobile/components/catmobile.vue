@@ -93,7 +93,6 @@
 		created() {
 			this.totalNum=this.tableData.length;
 			
-			
 			CatEvent().then( result => {
 				this.tableData = result.data
 				this.totalEvent = result.data.length

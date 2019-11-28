@@ -133,6 +133,7 @@
         <i class="el-icon-circle-check"></i>
         <el-button size="medium" @click="resetForm('ruleForm')">重新提交</el-button>
       </div>
+      
       <div style="margin-left: 100px;">
         <el-button
           type="primary"
