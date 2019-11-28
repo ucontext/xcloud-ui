@@ -145,10 +145,22 @@ const routes = [
   {
     path: "/doc",
     name: "doc",
+    component: index,
     meta: {
       name: "用户管理",
       icon: "el-icon-files"
-    }
+    },
+    children: [
+      {
+        path: "/person",
+        name: "person",
+        component: () => import("@/views/person"),
+        meta: {
+          name: "运维人员",
+          icon: "el-icon-s-management"
+        }
+      }
+    ]
   }
 ];
 

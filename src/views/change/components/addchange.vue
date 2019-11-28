@@ -74,10 +74,10 @@
                 class="changewidth"
               >
                 <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
+                  v-for="item in department"
+                  :key="item.index"
+                  :label="item.name"
+                  :value="item.name"
                 ></el-option>
               </el-select>
             </el-form-item>
@@ -281,6 +281,7 @@
 </template>
 
 <script>
+import { GetDepartment } from "@/api/change"
 export default {
   data() {
     return {
@@ -289,6 +290,7 @@ export default {
       labelPosition: "top",
       infradio: 3,
       emeradio: 3,
+      department: "",
       ruleForm: {
         change_name: "",
         request_date: "",
@@ -357,6 +359,14 @@ export default {
     next() {
       if (this.active++ > 3) this.active = 1;
     }
+  },
+  created(){
+    GetDepartment().then(
+      result => {
+        this.department = result.data
+        console.log(result.data)
+      }
+    )
   }
 };
 </script>
