@@ -1,76 +1,56 @@
 <template>
   <div id="login">
-    <div class="login-wrap">
-      <ul class="menu-tab">
-        <li
-          v-for="item in menuTab"
-          :key="item.id"
-          :class="{ current: item.current }"
-          @click="toggleMenu(item)"
-        >{{ item.tex }}</li>
-      </ul>
-      <el-form
-        :model="ruleForm"
-        :rules="rules"
-        status-icon
-        ref="ruleForm"
-        class="login-form"
-        size="medium"
-      >
-        <el-form-item prop="email" class="item-form">
-          <label>邮箱</label>
-          <el-input type="text" v-model="ruleForm.email" autocomplete="off"></el-input>
-        </el-form-item>
+    <el-row>
+      <el-col :span="8">
+        <el-carousel height="100vh">
+          <el-carousel-item v-for="item in src" :key="item.index">
+            <el-image :src="item"></el-image>
+          </el-carousel-item>
+        </el-carousel>
+      </el-col>
+      <el-col :span="16">
+        <div class="login-form">
+          <span style="font-size:16px">信息资源管理系统</span>
+          <el-form :model="ruleForm" :rules="rules" label-position="top" status-icon ref="ruleForm">
+            <el-divider></el-divider>
+            <el-row :gutter="40">
+              <el-col :span="12">
+                <el-form-item prop="email" class="item-form" label="邮箱">
+                  <el-input type="text" v-model="ruleForm.email" size="small" autocomplete="off"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item prop="password" class="item-form" label="密码">
+                  <el-input
+                    type="password"
+                    v-model="ruleForm.password"
+                    autocomplete="off"
+                    minlength="6"
+                    maxlength="20"
+                    size="small"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
 
-        <el-form-item prop="password" class="item-form">
-          <label>密码</label>
-          <el-input
-            type="password"
-            v-model="ruleForm.password"
-            autocomplete="off"
-            minlength="6"
-            maxlength="20"
-          ></el-input>
-        </el-form-item>
+            <el-divider></el-divider>
 
-        <el-form-item prop="passwords" class="item-form" v-if="model === 'register'">
-          <label>确认密码</label>
-          <el-input
-            type="text"
-            v-model="ruleForm.passwords"
-            autocomplete="off"
-            minlength="6"
-            maxlength="20"
-          ></el-input>
-        </el-form-item>
-
-        <!-- <el-form-item prop="code" class="item-form">
-          <label>验证码</label>
-          <el-row :gutter="10">
-            <el-col :span="15">
-              <el-input v-model="ruleForm.code" autocomplete="off" minlength="6" maxlength="20"></el-input>
-            </el-col>
-            <el-col :span="9">
-              <el-button type="success" class="block">获取验证码</el-button>
-            </el-col>
-          </el-row>
-        </el-form-item>-->
-
-        <el-form-item>
-          <el-button
-            type="danger"
-            class="login-btn block"
-            :disabled="loginStatus"
-            @click="submitForm('ruleForm')"
-          >{{ model==='login' ? '登录' : '注册'}}</el-button>
-        </el-form-item>
-      </el-form>
-    </div>
+            <el-button
+              type="primary"
+              size="small"
+              class="block"
+              :disabled="loginStatus"
+              @click="submitForm('ruleForm')"
+            >登录</el-button>
+          </el-form>
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
-import { validateEmail, validatePass } from "@/utils/validate.js";
+import { validateEmail,validatePass } from "@/utils/validate.js";
 import { Login } from "@/api/login";
 import { mapMutations } from "vuex";
 
@@ -99,33 +79,11 @@ export default {
       }
     };
 
-    // 验证确认密码
-    var validatePasswords = (rule, value, callback) => {
-      // 使用v-show时，提交表单问题处理
-      if (this.model === "login") {
-        callback();
-      }
-      if (value === "") {
-        callback(new Error("请输入密码"));
-      } else if (value != this.ruleForm.password) {
-        callback(new Error("两次密码不一致"));
-      } else {
-        callback();
-      }
-    };
-
-    // 验证验证码
-    var validateCode = (rule, value, callback) => {
-      let reg = /^[a-z0-9]{6}$/;
-      if (value === "") {
-        callback(new Error("请输入验证码"));
-      } else if (!reg.test(value)) {
-        callback(new Error("验证码格式有误"));
-      } else {
-        callback();
-      }
-    };
     return {
+      src: [
+        require("../../assets/timg.jpg"),
+        require("../../assets/light.jpg")
+      ],
       menuTab: [
         {
           tex: "登录",
@@ -157,20 +115,6 @@ export default {
         password: [
           {
             validator: validatePassword,
-            trigger: "blur"
-          }
-        ],
-
-        passwords: [
-          {
-            validator: validatePasswords,
-            trigger: "blur"
-          }
-        ],
-
-        code: [
-          {
-            validator: validateCode,
             trigger: "blur"
           }
         ]
@@ -215,19 +159,9 @@ export default {
             }
           });
         } else {
-          console.log("error submit!!");
           return false;
         }
       });
-
-      // this.$refs[formName].validate(valid => {
-      //   if (valid) {
-      //     alert("submit!");
-      //   } else {
-      //     console.log("error submit!!");
-      //     return false;
-      //   }
-      // });
     }
   }
 };
@@ -236,56 +170,38 @@ export default {
 <style lang="scss" scoped>
 #login {
   height: 100%;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
-  background-color: #344a5f;
-}
-
-.login-wrap {
-  width: 330px;
-  margin: auto;
-}
-
-.menu-tab {
-  text-align: center;
-
-  li {
-    display: inline-block;
-    width: 88px;
-    line-height: 36px;
-    font-size: 14px;
-    color: #fff;
-    border-radius: 2px;
-    // 鼠标指针变成手势
-    cursor: pointer;
-  }
-}
-
-.current {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
 }
 
 .login-form {
-  margin-top: 29px;
+  margin-top: 30%;
+  padding: 0 150px;
+}
 
-  label {
-    display: block;
-    font-size: 14px;
-    color: #fff;
-    margin-bottom: 3px;
-  }
+.el-form--label-top .el-form-item__label {
+  padding: 0;
+}
 
-  .item-form {
-    margin-bottom: 13px;
-  }
+.block {
+  width: 10%;
+  display: block;
+}
 
-  .block {
-    width: 100%;
-    display: block;
-  }
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 14px;
+  opacity: 0.75;
+  line-height: 100vh;
+  margin: 0;
+}
 
-  .login-btn {
-    margin-top: 19px;
-  }
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
 }
 </style>
