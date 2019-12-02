@@ -45,7 +45,7 @@ import morechange from "@/views/change/components/morechange.vue";
 export default {
   data() {
     return {
-      tableData: "",
+      tableData: [],
       dialogTableVisible: false,
     };
   },

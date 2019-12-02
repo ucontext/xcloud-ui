@@ -40,28 +40,51 @@ export default {
 <style lang="scss" scoped>
 @import "../../styles/config.scss";
 #header-wrap {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   left: $asside;
   height: 60px;
-  background-color: #fafbfc;
+  background-color: #fff;
+  line-height: 60px;
   -webkit-box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.1);
+  // -webkit-transition: all 0.3s ease 0s;
 }
 
-.username {
-  display: inline-block;
-  width: 100px;
-  font-size: 14px
+.username{
+  font-size: 14px;
+  float: left;
+  display: block
+}
+
+.header-icon {
+  padding: 0 32px;
+  svg {
+    margin-bottom: -8px;
+    font-size: 25px;
+    cursor: pointer;
+  }
 }
 .user-info {
   height: 100%;
+  padding: 0 32px;
   border-right: 1px solid #ededed;
+  + .header-icon {
+    padding: 0 28px;
+  }
+  img {
+    display: inline-block;
+    margin-bottom: 12px;
+    margin-right: 18px;
+    border-radius: 50px;
+  }
 }
-.el-dropdown {
-  padding: 5px 20px;
+
+.el-dropdown{
+  padding: 7px 25px;
   position: relative;
   color: #606266;
   font-size: 14px;
 }
 </style>
+
