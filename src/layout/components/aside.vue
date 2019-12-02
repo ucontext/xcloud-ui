@@ -5,11 +5,10 @@
       <svg-icon></svg-icon>
     </div>
 
-    <div class="menu">
+    <div class="amenu">
       <el-menu
         :default-active="$route.path"
         class="el-menu-vertical-demo"
-        
         text-color="#484f57"
         active-text-color="#426dd5"
         router
@@ -30,12 +29,10 @@
                 :index="subitem.path"
               >{{subitem.meta.name}}</el-menu-item>
             </el-menu-item-group>
-
           </el-submenu>
         </template>
       </el-menu>
     </div>
-    
   </div>
 </template>
 
@@ -46,7 +43,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 @import "../../styles/config.scss";
 
 #asside-wrap {
@@ -56,16 +52,24 @@ export default {
   width: $asside;
   height: 100vh;
   background-color: #ffffff;
+
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   -webkit-box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.1);
 }
 
-.logo{
+.logo {
+  overflow-y: visible;
   height: 60px;
   width: $asside;
   background-color: #ffffff;
   // -webkit-box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.1);
   // background-color: transparent;
 }
+
 // .el-aside {
 //   background-color: #212c32;
 //   color: #333;

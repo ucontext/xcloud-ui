@@ -157,7 +157,7 @@ export default {
       region: "",
       pctype: "",
       ostype: "",
-
+      
       ruleForm: {
         room: "",
         location_name: "",
@@ -296,11 +296,12 @@ export default {
   padding: 0 10px;
 }
 
+
+
 .el-form-item__label {
   text-align: center;
   float: left;
   font-size: 14px;
-  color: #606266;
   line-height: 40px;
   padding: 0 0 0 0;
 }

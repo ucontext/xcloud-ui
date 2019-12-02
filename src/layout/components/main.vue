@@ -27,6 +27,8 @@ export default {
   // height: 100vh;
   // border: 30px solid #f7f7f7;
   // box-sizing: border;
+
+
 }
 
 .main-content {
@@ -38,6 +40,10 @@ export default {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 
+    overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .content {
@@ -47,5 +53,6 @@ export default {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   background-color: #ffffff;
+
 }
 </style>

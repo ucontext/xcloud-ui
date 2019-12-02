@@ -8,8 +8,8 @@
     >
       <el-step title="填写变更概况"></el-step>
       <el-step title="填写变更内容"></el-step>
-      <el-step title="填写变更结果" description></el-step>
-      <el-step title="完成" description></el-step>
+      <el-step title="填写变更结果"></el-step>
+      <el-step title="完成"></el-step>
     </el-steps>
 
     <el-form
@@ -38,6 +38,7 @@
                 placeholder="选择日期"
                 :size="ipheight"
                 class="changewidth"
+                value-format="yyyy-MM-dd HH:mm:ss"
               ></el-date-picker>
             </el-form-item>
           </el-col>
@@ -55,10 +56,10 @@
                 class="changewidth"
               >
                 <el-option
-                  v-for="item in options"
+                  v-for="item in person"
                   :key="item.id"
                   :label="item.label"
-                  :value="item.value"
+                  :value="item.name"
                 ></el-option>
               </el-select>
             </el-form-item>
@@ -95,10 +96,10 @@
                 class="changewidth"
               >
                 <el-option
-                  v-for="item in options"
+                  v-for="item in changereason"
                   :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
+                  :label="item.name"
+                  :value="item.name"
                 ></el-option>
               </el-select>
             </el-form-item>
@@ -113,10 +114,10 @@
                 class="changewidth"
               >
                 <el-option
-                  v-for="item in options"
+                  v-for="item in changetype"
                   :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
+                  :label="item.name"
+                  :value="item.name"
                 ></el-option>
               </el-select>
             </el-form-item>
@@ -128,13 +129,13 @@
           <el-col :span="12">
             <el-form-item label="影响程度" prop="change_influence">
               <el-radio-group v-model="ruleForm.change_influence">
-                <el-radio value="重大" label="1" :size="ipheight">
+                <el-radio value="重大" label="重大" :size="ipheight">
                   <el-tag type="danger" :size="ipheight">重大</el-tag>
                 </el-radio>
-                <el-radio value="大" label="2">
+                <el-radio value="大" label="大">
                   <el-tag :size="ipheight">大</el-tag>
                 </el-radio>
-                <el-radio value="一般" label="3">
+                <el-radio value="一般" label="一般">
                   <el-tag type="success" :size="ipheight">一般</el-tag>
                 </el-radio>
               </el-radio-group>
@@ -143,13 +144,13 @@
           <el-col :span="12">
             <el-form-item label="紧急程度" prop="change_emergency">
               <el-radio-group v-model="ruleForm.change_emergency">
-                <el-radio value="紧急" label="1">
+                <el-radio value="紧急" label="紧急">
                   <el-tag type="danger" :size="ipheight">紧急</el-tag>
                 </el-radio>
-                <el-radio value="急" label="2">
+                <el-radio value="急" label="急">
                   <el-tag :size="ipheight">急</el-tag>
                 </el-radio>
-                <el-radio value="一般" label="3">
+                <el-radio value="一般" label="一般">
                   <el-tag type="success" :size="ipheight">一般</el-tag>
                 </el-radio>
               </el-radio-group>
@@ -176,19 +177,7 @@
 
           <el-col :span="12">
             <el-form-item label="涉及的设备信息" prop="change_device">
-              <el-select
-                v-model="ruleForm.change_device"
-                placeholder="请选择"
-                :size="ipheight"
-                class="changewidth"
-              >
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                ></el-option>
-              </el-select>
+              <el-input type="text" style="width:90%" :size="ipheight" v-model="ruleForm.change_device"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -213,26 +202,28 @@
       <div v-if="active === 3" style="margin: 0 60px;align-content: center;">
         <el-row :gutter="20">
           <el-col :span="12">
-            <el-form-item label="变更处理开始时间" prop="change_start_date">
+            <el-form-item label="变更处理开始时间" prop="start_date">
               <el-date-picker
-                v-model="ruleForm.change_start_date"
+                v-model="ruleForm.start_date"
                 type="datetime"
                 align="right"
                 placeholder="选择日期"
                 :size="ipheight"
                 class="changewidth"
+                value-format="yyyy-MM-dd HH:mm:ss"
               ></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="变更处理结束时间" prop="change_end_date">
+            <el-form-item label="变更处理结束时间" prop="end_date">
               <el-date-picker
-                v-model="ruleForm.change_end_date"
+                v-model="ruleForm.end_date"
                 type="datetime"
                 align="right"
                 placeholder="选择日期"
                 :size="ipheight"
                 class="changewidth"
+                value-format="yyyy-MM-dd HH:mm:ss"
               ></el-date-picker>
             </el-form-item>
           </el-col>
@@ -246,8 +237,8 @@
           </el-col>
 
           <el-col :span="12">
-            <el-form-item label="变更审核人" prop="verify_man">
-              <el-input v-model="ruleForm.verify_man" :size="ipheight" class="changewidth"></el-input>
+            <el-form-item label="变更审核人" prop="owner_man">
+              <el-input v-model="ruleForm.owner_man" :size="ipheight" class="changewidth"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -276,12 +267,14 @@
         <el-button size="medium" @click="next" v-if="active == 1 || active == 2">下一步</el-button>
         <el-button size="medium" @click="prev" v-if="active == 2 || active == 3">上一步</el-button>
       </div>
+
     </el-form>
   </div>
 </template>
 
 <script>
-import { GetDepartment } from "@/api/change"
+import { GetDepartment, GetReason, GetType, AddChange } from "@/api/change";
+import { GetPerson } from "@/api/person";
 export default {
   data() {
     return {
@@ -291,6 +284,9 @@ export default {
       infradio: 3,
       emeradio: 3,
       department: "",
+      changereason:"",
+      changetype:"",
+      person: "",
       ruleForm: {
         change_name: "",
         request_date: "",
@@ -302,10 +298,14 @@ export default {
         change_emergency: "",
         change_risk: "",
         change_description: "",
-        delivery: false,
-        type: [],
-        resource: "",
-        desc: ""
+        change_device: "",
+        change_resource: "",
+        change_course: "",
+        start_date: "",
+        end_date: "",
+        exec_man: "",
+        owner_man: "",
+        change_test: ""
       },
       rules: {
         change_name: [
@@ -323,18 +323,6 @@ export default {
           { required: true, message: "请选择申请人", trigger: "blur" },
           { min: 8, max: 20, message: "长度在 8 到 20 个字符", trigger: "blur" }
         ],
-        type: [
-          {
-            type: "array",
-            required: true,
-            message: "请至少选择一个活动性质",
-            trigger: "change"
-          }
-        ],
-        resource: [
-          { required: true, message: "请选择活动资源", trigger: "change" }
-        ],
-        desc: [{ required: true, message: "请填写活动形式", trigger: "blur" }]
       }
     };
   },
@@ -342,15 +330,37 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          let repuestData = {
+            change_name: this.ruleForm.change_name,
+            request_date: this.ruleForm.request_date,
+            request_man: this.ruleForm.request_man,
+            change_department: this.ruleForm.change_department,
+            reason_name: this.ruleForm.reason_name,
+            type_name: this.ruleForm.type_name,
+            change_influence: this.ruleForm.change_influence,
+            change_emergency: this.ruleForm.change_emergency,
+            change_risk: this.ruleForm.change_risk,
+            change_description: this.ruleForm.change_description,
+            change_device: this.ruleForm.change_device,
+            change_resource: this.ruleForm.change_resource,
+            change_course: this.ruleForm.change_course,
+            start_date: this.ruleForm.start_date,
+            end_date: this.ruleForm.end_date,
+            exec_man: this.ruleForm.exec_man,
+            owner_man: this.ruleForm.owner_man,
+            change_test: this.ruleForm.change_test
+          };
+          AddChange(repuestData).then(result => {
+            this.active = 4
+          });
         } else {
-          console.log("error submit!!");
           return false;
         }
       });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.active = 1;
     },
     prev() {
       --this.active;
@@ -360,13 +370,19 @@ export default {
       if (this.active++ > 3) this.active = 1;
     }
   },
-  created(){
-    GetDepartment().then(
-      result => {
-        this.department = result.data
-        console.log(result.data)
-      }
-    )
+  created() {
+    GetDepartment().then(result => {
+      this.department = result.data;
+    }),
+      GetReason().then(result => {
+        this.changereason = result.data;
+      }),
+      GetType().then(result => {
+        this.changetype = result.data;
+      });
+    GetPerson().then(result => {
+      this.person = result.data;
+    });
   }
 };
 </script>

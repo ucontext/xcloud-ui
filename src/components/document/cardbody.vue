@@ -1,18 +1,16 @@
 <template>
   <div>
-    <el-card class="box-card">
-      <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane :label="add" name="first">
-          <slot name="add"></slot>
-        </el-tab-pane>
-        <el-tab-pane :label="cat" name="second">
-          <slot name="cat"></slot>
-        </el-tab-pane>
-        <el-tab-pane :label="inbox" name="third">
-          <slot name="inbox"></slot>
-        </el-tab-pane>
-      </el-tabs>
-    </el-card>
+    <el-tabs v-model="activeName" :tab-position="tabPosition" stretch>
+      <el-tab-pane :label="add" name="first">
+        <slot name="add"></slot>
+      </el-tab-pane>
+      <el-tab-pane :label="cat" name="second">
+        <slot name="cat"></slot>
+      </el-tab-pane>
+      <el-tab-pane :label="inbox" name="third">
+        <slot name="inbox"></slot>
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 
@@ -20,13 +18,14 @@
 export default {
   data() {
     return {
-      activeName: "first"
+      activeName: "first",
+      tabPosition: "left"
     };
   },
+  // 组件传值
   props: ["add", "cat", "inbox"]
 };
 </script>
 
 <style lang="scss" scoped>
-
 </style>

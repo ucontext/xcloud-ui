@@ -2,10 +2,10 @@
   <div id="header-wrap">
     <div class="pull-right">
       <div class="userinfo">
-        {{username}}
+        <span class="username">{{username}}</span>
         <el-dropdown trigger="hover" :hide-on-click="false">
           <span class="el-dropdown-link">
-            <el-avatar :src="logoURL" :size="46" :fit='fit'></el-avatar>
+            <el-avatar :src="logoURL" :size="46" :fit="fit"></el-avatar>
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item icon="el-icon-user">个人中心</el-dropdown-item>
@@ -19,20 +19,20 @@
 </template>
 
 <script>
-import { GetUser } from '@/api/login'
+import { GetUser } from "@/api/login";
 export default {
   name: "lheader",
-  data(){
-    return{
-      logoURL:"../../assets/aaa.jpeg",
-      fit:"contain",
-      username:"管理员"
-    }
+  data() {
+    return {
+      logoURL: require("../../assets/wechat.jpeg"),
+      fit: "contain",
+      username: "管理员"
+    };
   },
-  created(){
+  created() {
     GetUser().then(result => {
-      this.username = result.data.nickname
-    })
+      this.username = result.data.nickname;
+    });
   }
 };
 </script>
@@ -40,7 +40,7 @@ export default {
 <style lang="scss" scoped>
 @import "../../styles/config.scss";
 #header-wrap {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   left: $asside;
@@ -49,20 +49,19 @@ export default {
   -webkit-box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.1);
 }
 
-.header-icon {
-  padding: 0 32px;
+.username {
+  display: inline-block;
+  width: 100px;
+  font-size: 14px
 }
-
 .user-info {
   height: 100%;
   border-right: 1px solid #ededed;
 }
 .el-dropdown {
-    display: inline-block;
-    position: relative;
-    color: #606266;
-    font-size: 14px;
-    padding: 7px 20px;
+  padding: 5px 20px;
+  position: relative;
+  color: #606266;
+  font-size: 14px;
 }
-
 </style>

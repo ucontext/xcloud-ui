@@ -5,12 +5,14 @@
 </template>
 
 <script>
-
-export default {
-
-};
+export default {};
 </script>
 
 <style lang="scss">
-
+#app {
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
 </style>
