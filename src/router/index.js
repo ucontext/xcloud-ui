@@ -37,6 +37,7 @@ const routes = [
   {
     path: "/inspect",
     name: "inspect",
+    component: index,
     meta: {
       name: "设备巡检",
       icon: "el-icon-document"

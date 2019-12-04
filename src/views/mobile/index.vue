@@ -9,6 +9,9 @@
           <template slot="cat">
             <catmobile></catmobile>
           </template>
+          <template slot="inbox">
+            <reportmobile></reportmobile>
+          </template>
         </cardbody>
       </div>
     </el-col>
@@ -20,6 +23,7 @@ import cardbody from "@/components/document/cardbody.vue";
 
 import addmobile from "@/views/mobile/components/addmobile.vue";
 import catmobile from "@/views/mobile/components/catmobile.vue";
+import reportmobile from "@/views/mobile/components/reportmobile.vue";
 
 export default {
   data() {
@@ -33,7 +37,8 @@ export default {
   components: {
     cardbody,
     addmobile,
-    catmobile
+    catmobile,
+    reportmobile
   }
 };
 </script>
