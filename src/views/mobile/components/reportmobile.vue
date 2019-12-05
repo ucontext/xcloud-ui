@@ -4,61 +4,69 @@
 
 <script>
 import { GetReport } from "@/api/mobile";
+
 export default {
   data() {
     return {
       charts: "",
-      optionData: [],
+      // chartData: [{
+      //     name: "",
+      //     value: 0
+      // }]
+      chartData:""
     };
   },
   methods: {
     drawPie(id) {
       this.charts = this.$echarts.init(document.getElementById(id));
-      console.log(this.optionData.name)
+      console.log(this.chartData);
       this.charts.setOption({
+        title: {
+          text: "终端事件统计",
+          subtext: "纯属虚构",
+          x: "center"
+        },
         tooltip: {
           trigger: "item",
-          formatter: "{a}<br/>{b}:{c} ({d}%)"
+          formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+          orient: "horizontal",
+          bottom: "left",
+          data: ["王亚运", "高杰", "金圣礼"]
         },
 
-        legend: {
-          bottom: 10,
-          left: "center",
-          data: this.optionData.name
-        },
         series: [
           {
-            name: "",
+            name: "访问来源",
             type: "pie",
-            radius: "65%",
-            center: ["50%", "50%"],
-            avoidLabelOverlap: false,
+            radius: "55%",
+            center: ["50%", "60%"],
+            data: this.chartData,
+            // {"name":"王亚运","value":"7"},
+            // {"name":"高杰","value":349},
+            // {"name":"金圣礼","value":356},
+
             itemStyle: {
               emphasis: {
                 shadowBlur: 10,
                 shadowOffsetX: 0,
                 shadowColor: "rgba(0, 0, 0, 0.5)"
-              },
-              color: function(params) {
-                //自定义颜色
-                var colorList = ["#1ab394", "#79d2c0"];
-                return colorList[params.dataIndex];
               }
-            },
-            data: this.optionData.number
+            }
           }
         ]
       });
     }
   },
+  created() {
+    GetReport().then(result => {
+      this.chartData = result.data;
+    });
+  },
   mounted() {
     this.$nextTick(function() {
       this.drawPie("pieReport");
-    });
-  },
-  created() {
-    GetReport().then(res => {
-      this.optionData = res.data;
     });
   }
 };

@@ -285,6 +285,7 @@ export default {
     // 获取操作系统类型
     GetOS().then(result => {
       this.ostype = result.data;
+      console.log(this.ostype)
     });
   }
 };

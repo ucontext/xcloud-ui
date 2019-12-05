@@ -97,6 +97,7 @@
 				this.tableData = result.data
 				this.totalEvent = result.data.length
 			})
+			     console.log(this.tableData)
 		}		
 	}
 </script>
