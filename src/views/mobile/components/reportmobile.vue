@@ -3,34 +3,32 @@
 </template>
 
 <script>
+import { GetReport } from "@/api/mobile";
 export default {
-  name: "",
   data() {
     return {
       charts: "",
-      opinion: ["及格人数", "未及格人数"],
-      opinionData: [
-        { value: 12, name: "及格人数", itemStyle: "#1ab394" },
-        { value: 18, name: "未及格人数", itemStyle: "#79d2c0" }
-      ]
+      optionData: [],
     };
   },
   methods: {
     drawPie(id) {
       this.charts = this.$echarts.init(document.getElementById(id));
+      console.log(this.optionData.name)
       this.charts.setOption({
         tooltip: {
           trigger: "item",
           formatter: "{a}<br/>{b}:{c} ({d}%)"
         },
+
         legend: {
           bottom: 10,
           left: "center",
-          data: this.opinion
+          data: this.optionData.name
         },
         series: [
           {
-            name: "状态",
+            name: "",
             type: "pie",
             radius: "65%",
             center: ["50%", "50%"],
@@ -47,7 +45,7 @@ export default {
                 return colorList[params.dataIndex];
               }
             },
-            data: this.opinionData
+            data: this.optionData.number
           }
         ]
       });
@@ -56,6 +54,11 @@ export default {
   mounted() {
     this.$nextTick(function() {
       this.drawPie("pieReport");
+    });
+  },
+  created() {
+    GetReport().then(res => {
+      this.optionData = res.data;
     });
   }
 };
