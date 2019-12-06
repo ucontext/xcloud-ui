@@ -62,6 +62,7 @@
 
 <script>
 	import { CatEvent } from '@/api/mobile'
+	
 	export default {
 		data() {
 			return {
@@ -79,6 +80,7 @@
 				totalNum: 0 ,//总页数
 				totalEvent: 0
 			}
+			console.log(this.tableData)
 		},
 		methods: {
 			handleSizeChange(val) {
@@ -97,7 +99,6 @@
 				this.tableData = result.data
 				this.totalEvent = result.data.length
 			})
-			     console.log(this.tableData)
 		}		
 	}
 </script>

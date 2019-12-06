@@ -4,65 +4,40 @@
 
 <script>
 import { GetReport } from "@/api/mobile";
-
+import { optionData } from "@/charts/mobile";
 export default {
   data() {
     return {
       charts: "",
-      // chartData: [{
-      //     name: "",
-      //     value: 0
-      // }]
-      chartData:""
+      chartData: [],
+      chartName: []
     };
   },
   methods: {
     drawPie(id) {
       this.charts = this.$echarts.init(document.getElementById(id));
-      console.log(this.chartData);
-      this.charts.setOption({
-        title: {
-          text: "终端事件统计",
-          subtext: "纯属虚构",
-          x: "center"
-        },
-        tooltip: {
-          trigger: "item",
-          formatter: "{a} <br/>{b} : {c} ({d}%)"
-        },
-        legend: {
-          orient: "horizontal",
-          bottom: "left",
-          data: ["王亚运", "高杰", "金圣礼"]
-        },
+      this.charts.setOption(optionData);
 
-        series: [
-          {
-            name: "访问来源",
-            type: "pie",
-            radius: "55%",
-            center: ["50%", "60%"],
-            data: this.chartData,
-            // {"name":"王亚运","value":"7"},
-            // {"name":"高杰","value":349},
-            // {"name":"金圣礼","value":356},
+      this.charts.hideLoading(); //没有加载出来隐藏加载动画
 
-            itemStyle: {
-              emphasis: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: "rgba(0, 0, 0, 0.5)"
-              }
+      GetReport().then(result => {
+        this.chartData = result.data;
+        for (var i = 0; i < this.chartData.length; i++) {
+          this.chartName.push(this.chartData[i].name);
+        }
+        this.charts.setOption({
+          //动画的配置
+          legend: {
+            data: this.chartName
+          },
+          series: [
+            {
+              data: this.chartData //这里数据是一个数组的形似
             }
-          }
-        ]
+          ]
+        });
       });
     }
-  },
-  created() {
-    GetReport().then(result => {
-      this.chartData = result.data;
-    });
   },
   mounted() {
     this.$nextTick(function() {
