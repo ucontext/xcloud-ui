@@ -8,7 +8,6 @@
         <catchange></catchange>
       </el-tab-pane>
       <el-tab-pane label="变更统计">变更统计</el-tab-pane>
-      <el-tab-pane label="变更统计">变更报告</el-tab-pane>
     </el-tabs>
   </div>
 </template>

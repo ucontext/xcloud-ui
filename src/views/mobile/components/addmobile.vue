@@ -134,7 +134,7 @@
         <el-button size="medium" @click="resetForm('ruleForm')">重新提交</el-button>
       </div>
       
-      <div style="margin-left: 100px;">
+      <div style="margin-left: 100px;margin-top:20px">
         <el-button
           type="primary"
           @click="submitForm('ruleForm')"

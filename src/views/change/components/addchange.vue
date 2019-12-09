@@ -22,7 +22,7 @@
     >
       <div v-if="active === 1" style="margin: 0 60px;align-content: center;">
         <!-- 第一行内容 -->
-        <el-row :gutter="20">
+        <el-row :gutter="30">
           <el-col :span="12">
             <el-form-item label="变更名称" prop="change_name">
               <el-input v-model="ruleForm.change_name" :size="ipheight" class="changewidth"></el-input>
@@ -45,7 +45,7 @@
         </el-row>
 
         <!-- 第二行内容 -->
-        <el-row :gutter="20">
+        <el-row :gutter="30">
           <el-col :span="12">
             <el-form-item label="变更申请人" prop="request_man">
               <el-select
@@ -86,7 +86,7 @@
         </el-row>
 
         <!-- 第三行内容 -->
-        <el-row :gutter="20">
+        <el-row :gutter="30">
           <el-col :span="12">
             <el-form-item label="变更原因" prop="reason_name">
               <el-select
@@ -125,7 +125,7 @@
         </el-row>
 
         <!-- 第四行内容 -->
-        <el-row :gutter="20">
+        <el-row :gutter="30">
           <el-col :span="12">
             <el-form-item label="影响程度" prop="change_influence">
               <el-radio-group v-model="ruleForm.change_influence">
@@ -163,12 +163,12 @@
         <el-row>
           <el-col :span="24">
             <el-form-item label="变更描述" prop="change_description">
-              <el-input v-model="ruleForm.change_description" :size="ipheight" style="width:90%"></el-input>
+              <el-input v-model="ruleForm.change_description" :size="ipheight"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
 
-        <el-row :gutter="20">
+        <el-row :gutter="30">
           <el-col :span="12">
             <el-form-item label="变更风险" prop="change_risk">
               <el-input v-model="ruleForm.change_risk" :size="ipheight" class="changewidth"></el-input>
@@ -177,7 +177,7 @@
 
           <el-col :span="12">
             <el-form-item label="涉及的设备信息" prop="change_device">
-              <el-input type="text" style="width:90%" :size="ipheight" v-model="ruleForm.change_device"></el-input>
+              <el-input type="text" v-model="ruleForm.change_device" :size="ipheight" class="changewidth"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -185,7 +185,7 @@
         <el-row>
           <el-col :span="24">
             <el-form-item label="涉及的资源信息" prop="change_resource">
-              <el-input type="textarea" style="width:90%" v-model="ruleForm.change_resource"></el-input>
+              <el-input type="textarea" :size="ipheight" v-model="ruleForm.change_resource"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -193,14 +193,14 @@
         <el-row>
           <el-col :span="24">
             <el-form-item label="变更过程" prop="change_course">
-              <el-input type="textarea" style="width:90%" v-model="ruleForm.change_course"></el-input>
+              <el-input type="textarea" v-model="ruleForm.change_course"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
       </div>
 
       <div v-if="active === 3" style="margin: 0 60px;align-content: center;">
-        <el-row :gutter="20">
+        <el-row :gutter="30">
           <el-col :span="12">
             <el-form-item label="变更处理开始时间" prop="start_date">
               <el-date-picker
@@ -229,7 +229,7 @@
           </el-col>
         </el-row>
 
-        <el-row :gutter="20">
+        <el-row :gutter="30">
           <el-col :span="12">
             <el-form-item label="变更执行人" prop="exec_man">
               <el-input v-model="ruleForm.exec_man" :size="ipheight" class="changewidth"></el-input>
@@ -246,7 +246,7 @@
         <el-row>
           <el-col :span="24">
             <el-form-item label="测试结果" prop="change_test">
-              <el-input type="textarea" style="width:90%" v-model="ruleForm.change_test"></el-input>
+              <el-input type="textarea" v-model="ruleForm.change_test"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -393,7 +393,7 @@ export default {
   border: 0px solid #dcdfe6;
 
   .changewidth {
-    width: 80%;
+    width: 100%;
   }
 
   .el-row {

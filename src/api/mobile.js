@@ -77,14 +77,25 @@ export function AddEvent(data) {
 /**
  * 绘制报表信息
  */
-export function GetReport(data) {
+export function GetTotalReport(data) {
     return service.request({
         method: "get",
-        url: "/mobile/report",
+        url: "/mobile/totalreport",
         data: data
     })
 }
 
+
+/**
+ * 绘制报表信息
+ */
+export function GetTypeReport(data) {
+    return service.request({
+        method: "get",
+        url: "/mobile/typereport",
+        data: data
+    })
+}
 
 
 

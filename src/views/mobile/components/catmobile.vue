@@ -80,7 +80,6 @@
 				totalNum: 0 ,//总页数
 				totalEvent: 0
 			}
-			console.log(this.tableData)
 		},
 		methods: {
 			handleSizeChange(val) {

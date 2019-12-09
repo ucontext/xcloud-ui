@@ -6,9 +6,9 @@
       align-center
       style="margin-bottom: 30px;margin-top: 20px;"
     >
-      <el-step title="填写变更概况"></el-step>
-      <el-step title="填写变更内容"></el-step>
-      <el-step title="填写变更结果" description></el-step>
+      <el-step title="填写故障概况"></el-step>
+      <el-step title="填写故障内容"></el-step>
+      <el-step title="填写故障结果" description></el-step>
       <el-step title="完成" description></el-step>
     </el-steps>
 
@@ -22,15 +22,24 @@
     >
       <div v-if="active === 1" style="margin: 0 60px;align-content: center;">
         <!-- 第一行内容 -->
-        <el-row :gutter="20">
+        <el-row :gutter="30">
           <el-col :span="12">
-            <el-form-item label="变更名称" prop="change_name">
+            <el-form-item label="故障名称" prop="change_name">
               <el-input v-model="ruleForm.change_name" :size="ipheight" class="changewidth"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="12">
-            <el-form-item label="申请时间" prop="request_date">
+            <el-form-item label="故障单号" prop="change_name">
+              <el-input v-model="ruleForm.change_name" :size="ipheight" class="changewidth"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <!-- 第二行内容 -->
+        <el-row :gutter="30">
+          <el-col :span="12">
+            <el-form-item label="故障发生时间" prop="request_date">
               <el-date-picker
                 v-model="ruleForm.request_date"
                 type="datetime"
@@ -41,12 +50,30 @@
               ></el-date-picker>
             </el-form-item>
           </el-col>
+          <el-col :span="12">
+            <el-form-item label="故障发现方式" prop="request_man">
+              <el-select
+                v-model="ruleForm.request_man"
+                filterable
+                placeholder="请选择"
+                :size="ipheight"
+                class="changewidth"
+              >
+                <el-option
+                  v-for="item in options"
+                  :key="item.id"
+                  :label="item.label"
+                  :value="item.value"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
         </el-row>
 
-        <!-- 第二行内容 -->
-        <el-row :gutter="20">
+        <!-- 第三行内容 -->
+        <el-row :gutter="30">
           <el-col :span="12">
-            <el-form-item label="变更申请人" prop="request_man">
+            <el-form-item label="故障类型" prop="request_man">
               <el-select
                 v-model="ruleForm.request_man"
                 filterable
@@ -65,66 +92,24 @@
           </el-col>
 
           <el-col :span="12">
-            <el-form-item label="责任单位" prop="change_department">
-              <el-select
-                v-model="ruleForm.change_department"
-                filterable
-                placeholder="请选择"
-                :size="ipheight"
-                class="changewidth"
-              >
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <!-- 第三行内容 -->
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <el-form-item label="变更原因" prop="reason_name">
-              <el-select
-                v-model="ruleForm.reason_name"
-                placeholder="请选择"
-                :size="ipheight"
-                class="changewidth"
-              >
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="12">
-            <el-form-item label="变更分类" prop="type_name">
-              <el-select
-                v-model="ruleForm.type_name"
-                placeholder="请选择"
-                :size="ipheight"
-                class="changewidth"
-              >
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                ></el-option>
-              </el-select>
+            <el-form-item label="变更单号" prop="change_name">
+              <el-input v-model="ruleForm.change_name" :size="ipheight" class="changewidth"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
 
         <!-- 第四行内容 -->
-        <el-row :gutter="20">
+        <el-row>
+           <el-col :span="24">
+            <el-form-item label="故障描述" prop="change_description">
+              <el-input v-model="ruleForm.change_description" :size="ipheight"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>     
+      </div>
+      <!-- 第二页内容 -->
+      <div v-if="active === 2" style="margin: 0 60px;align-content: center;">
+           <el-row :gutter="30">
           <el-col :span="12">
             <el-form-item label="影响程度" prop="change_influence">
               <el-radio-group v-model="ruleForm.change_influence">
@@ -156,62 +141,39 @@
             </el-form-item>
           </el-col>
         </el-row>
-      </div>
 
-      <div v-if="active === 2" style="margin: 0 60px;align-content: center;">
-        <el-row>
-          <el-col :span="24">
-            <el-form-item label="变更描述" prop="change_description">
-              <el-input v-model="ruleForm.change_description" :size="ipheight" style="width:90%"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row :gutter="20">
+        <el-row :gutter="30">
           <el-col :span="12">
-            <el-form-item label="变更风险" prop="change_risk">
+            <el-form-item label="故障范围说明" prop="change_risk">
               <el-input v-model="ruleForm.change_risk" :size="ipheight" class="changewidth"></el-input>
             </el-form-item>
           </el-col>
-
           <el-col :span="12">
-            <el-form-item label="涉及的设备信息" prop="change_device">
-              <el-select
-                v-model="ruleForm.change_device"
-                placeholder="请选择"
-                :size="ipheight"
-                class="changewidth"
-              >
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                ></el-option>
-              </el-select>
+            <el-form-item label="故障原因" prop="change_risk">
+              <el-input v-model="ruleForm.change_risk" :size="ipheight" class="changewidth"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-row>
           <el-col :span="24">
-            <el-form-item label="涉及的资源信息" prop="change_resource">
-              <el-input type="textarea" style="width:90%" v-model="ruleForm.change_resource"></el-input>
+            <el-form-item label="故障分析过程" prop="change_resource">
+              <el-input type="textarea" v-model="ruleForm.change_resource"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-row>
           <el-col :span="24">
-            <el-form-item label="变更过程" prop="change_course">
-              <el-input type="textarea" style="width:90%" v-model="ruleForm.change_course"></el-input>
+            <el-form-item label="故障解决措施" prop="change_course">
+              <el-input type="textarea" v-model="ruleForm.change_course"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
       </div>
 
       <div v-if="active === 3" style="margin: 0 60px;align-content: center;">
-        <el-row :gutter="20">
+        <el-row :gutter="30">
           <el-col :span="12">
             <el-form-item label="变更处理开始时间" prop="change_start_date">
               <el-date-picker
@@ -238,15 +200,15 @@
           </el-col>
         </el-row>
 
-        <el-row :gutter="20">
+        <el-row :gutter="30">
           <el-col :span="12">
-            <el-form-item label="变更执行人" prop="exec_man">
+            <el-form-item label="故障处理人" prop="exec_man">
               <el-input v-model="ruleForm.exec_man" :size="ipheight" class="changewidth"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="12">
-            <el-form-item label="变更审核人" prop="verify_man">
+            <el-form-item label="故障审核人" prop="verify_man">
               <el-input v-model="ruleForm.verify_man" :size="ipheight" class="changewidth"></el-input>
             </el-form-item>
           </el-col>
@@ -254,8 +216,8 @@
 
         <el-row>
           <el-col :span="24">
-            <el-form-item label="测试结果" prop="change_test">
-              <el-input type="textarea" style="width:90%" v-model="ruleForm.change_test"></el-input>
+            <el-form-item label="故障结果" prop="change_test">
+              <el-input type="textarea" v-model="ruleForm.change_test"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -296,6 +258,7 @@ export default {
         change_department: "",
         reason_name: "",
         type_name: "",
+        is_change:"",
         change_influence: "",
         change_emergency: "",
         change_risk: "",
@@ -375,7 +338,7 @@ export default {
   border: 0px solid #dcdfe6;
 
   .changewidth {
-    width: 80%;
+    width: 100%;
   }
 
   .el-row {

@@ -52,7 +52,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column prop="name" label="QQ">
+          <el-table-column prop="qq" label="QQ">
             <template slot-scope="scope">
               <span style="center">{{ scope.row.qq }}</span>
             </template>
@@ -94,7 +94,7 @@ export default {
       dialogTableVisible: false,
       dialogFormVisible: false,
       formLabelWidth: "100px",
-      tableData: "",
+      tableData: [],
       currentPage: 1, //默认显示第一页
       pageSize: 5, //默认每页显示x条
       totalNum: 0, //总页数

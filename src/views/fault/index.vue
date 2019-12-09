@@ -2,16 +2,15 @@
   <div>
     <el-tabs :tab-position="tabPosition" stretch>
       <el-tab-pane label="新增故障">
-        <addchange></addchange>
+        <addfault></addfault>
       </el-tab-pane>
       <el-tab-pane label="查看故障">查看故障</el-tab-pane>
       <el-tab-pane label="故障统计">故障统计</el-tab-pane>
-      <el-tab-pane label="故障报告">故障报告</el-tab-pane>
     </el-tabs>
   </div>
 </template>
 <script>
-import addchange from "./components/addfault"
+import addfault from "./components/addfault"
 export default {
   data() {
     return {
@@ -19,7 +18,7 @@ export default {
     };
   },
   components:{
-    addchange
+    addfault
   }
 };
 </script>

@@ -10,6 +10,9 @@
       <el-tab-pane :label="inbox" name="third">
         <slot name="inbox"></slot>
       </el-tab-pane>
+      <el-tab-pane :label="doc" name="fourthly">
+        <slot name="doc"></slot>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -23,7 +26,7 @@ export default {
     };
   },
   // 组件传值
-  props: ["add", "cat", "inbox"]
+  props: ["add", "cat", "inbox", "doc"]
 };
 </script>
 
