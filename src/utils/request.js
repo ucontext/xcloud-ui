@@ -40,13 +40,9 @@ import axios from 'axios';
 import { Message } from 'element-ui';
 
 
-// 创建axios，赋给变量service
-// 手把手撸码前端API，地址 http://www.web-jshtml.cn/productApi
-
-// const BASEURL = process.env.NODE_ENV === 'production' ? '' : '/devApi';
-const BASEURL = "http://127.0.0.1:2345/v1"
+const BASEURL = "http://127.0.0.1:5000/v1"
 const service = axios.create({
-    baseURL: BASEURL,  // http://192.168.0.106:8080/devApi/  == http://www.web-jshtml.cn/productapi/productapi
+    baseURL: BASEURL,
     // timeout: 15000,   // 超时
     // 网络请求接口，假设 5000
     // 1000 2000，

@@ -145,10 +145,12 @@ export default {
             type: 100
           };
           Login(requestData).then(response => {
-            if (parseInt(response.status) === 400) {
+            
+            if (parseInt(response.status) === 404) {
               // 登录失败
               this.email = "";
               this.password = "";
+              console.log(response)  
             } else if (parseInt(response.status) === 201) {
               // 存token
               sessionStorage.setItem("token", response.data.token);

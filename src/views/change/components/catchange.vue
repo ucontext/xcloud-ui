@@ -1,6 +1,11 @@
 <template>
   <div>
-    <el-table :data="tableData" style="width: 100%">
+    <el-table
+      :data="tableData"
+      highlight-current-row
+      @current-change="handleCurrentChange"
+      style="width: 100%"
+    >
       <el-table-column prop="change_number" label="变更单号">
         <template slot-scope="scope">
           <span style="center">{{ scope.row.change_number }}</span>
@@ -26,14 +31,9 @@
       </el-table-column>
 
       <el-table-column fixed="right" label="操作" width="150px">
-       
-          <el-button
-            @click="dialogTableVisible = true"
-            type="text"
-            size="small"
-          >查看</el-button>
-          <el-button type="text" size="small">编辑</el-button>
-          <el-button type="text" size="small">下载</el-button>
+        <el-button @click="dialogTableVisible = true" type="text" size="small">查看</el-button>
+        <el-button type="text" size="small">编辑</el-button>
+        <el-button @click="downFile()" type="text" size="small">下载</el-button>
       </el-table-column>
     </el-table>
     <morechange :tableVisible="dialogTableVisible"></morechange>
@@ -42,13 +42,64 @@
 
 <script>
 import { GetChange } from "@/api/change";
+import service from "@/utils/request";
 import morechange from "@/views/change/components/morechange.vue";
 export default {
   data() {
     return {
       tableData: [],
       dialogTableVisible: false,
+      currentRow: null
     };
+  },
+  methods: {
+    downFile() {
+      console.log(this.currentRow.change_number);
+
+      let repuestData = {
+        change_number: this.currentRow.change_number
+      };
+
+      service
+        .request({
+          method: "get",
+          headers: {
+            "content-type":
+              "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          },
+          Authentication: { username: sessionStorage.getItem("token") },
+          url: "/downfile/change/" + this.currentRow.change_number,
+          responseType: "blob"
+        })
+        .then(res => {
+          console.log(res);
+          const blob = new Blob([res.data], {
+            type: "application/zip;charset=utf-8"
+          });
+          const fileName = this.currentRow.change_number + ".docx"; //下载的文件名称及其后缀，后缀要和后台保持的一致
+          if ("download" in document.createElement("a")) {
+            // 非IE下载
+            const elink = document.createElement("a");
+            elink.download = fileName;
+            elink.style.display = "none";
+            elink.href = URL.createObjectURL(blob);
+            document.body.appendChild(elink);
+            elink.click();
+            URL.revokeObjectURL(elink.href); // 释放URL 对象
+            document.body.removeChild(elink);
+          } else {
+            // IE10+下载
+            navigator.msSaveBlob(blob, fileName);
+          }
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    },
+
+    handleCurrentChange(val) {
+      this.currentRow = val;
+    }
   },
   components: {
     morechange
