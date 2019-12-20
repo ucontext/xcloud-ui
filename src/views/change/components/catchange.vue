@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-table
-      :data="tableData"
+      :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
       highlight-current-row
       @current-change="handleCurrentChange"
       style="width: 100%"
@@ -36,7 +36,19 @@
         <el-button @click="downFile()" type="text" size="small">下载</el-button>
       </el-table-column>
     </el-table>
+
     <morechange :tableVisible="dialogTableVisible"></morechange>
+
+    <div class="block">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-size="pageSize"
+        layout="total, prev, pager, next"
+        :total="totalEvent"
+      >></el-pagination>
+    </div>
   </div>
 </template>
 
@@ -49,10 +61,20 @@ export default {
     return {
       tableData: [],
       dialogTableVisible: false,
-      currentRow: null
+      currentRow: null,
+      currentPage: 1, //默认显示第一页
+      pageSize: 5, //默认每页显示5条
+      totalNum: 0, //总页数
+      totalEvent: 0
     };
   },
   methods: {
+    handleCurrentChange(val) {
+      this.currentRow = val;
+    },
+    handleSizeChange(val) {
+      this.pageSize = val; //动态改变
+    },
     downFile() {
       console.log(this.currentRow.change_number);
 
@@ -95,10 +117,6 @@ export default {
         .catch(function(err) {
           console.log(err);
         });
-    },
-
-    handleCurrentChange(val) {
-      this.currentRow = val;
     }
   },
   components: {
@@ -106,8 +124,10 @@ export default {
   },
 
   created() {
+    this.totalNum = this.tableData.length;
     GetChange().then(result => {
       this.tableData = result.data;
+      this.totalEvent = result.data.length;
     });
   }
 };
